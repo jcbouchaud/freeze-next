@@ -11,8 +11,8 @@ export const DescriptionColumn = ({ staff_description, student_description }: De
         if (description.length >= ellipsisLength) {
             return (
                 <HoverCard>
-                    <HoverCardTrigger>
-                        {description.slice(0, ellipsisLength)}
+                    <HoverCardTrigger className="cursor-pointer">
+                        {description.slice(0, ellipsisLength)}...
                     </HoverCardTrigger>
                     <HoverCardContent className="break-words w-full max-w-md">
                         {description}

@@ -11,7 +11,7 @@ export const DatesColumn = ({ begin_date, expected_end_date, effective_end_date 
 
     return (
         <HoverCard>
-            <HoverCardTrigger className="cursor-">
+            <HoverCardTrigger className="cursor-pointer">
                 <div className="flex flex-col align-middle w-fit">
                     <div className="flex flex-row gap-1 items-center whitespace-nowrap">
                         {begin_date}
