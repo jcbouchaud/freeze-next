@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { DatesColumn } from "./dates";
 import { DescriptionColumn } from "./description";
 import { Freeze } from "@/lib/definitions";
+import Link from "next/link";
 import { StatusColumn } from "./status";
 import { UserColumn } from "./user";
 
@@ -52,6 +53,14 @@ export const columns: ColumnDef<Freeze>[] = [
         cell: ({ row }) => {
             const { student_description, staff_description } = row.original
             return <DescriptionColumn staff_description={staff_description} student_description={student_description} />
+        },
+    },
+    {
+        accessorKey: "actions",
+        header: "actions",
+        cell: ({ row }) => {
+            const { id } = row.original
+            return <Link href={`/freezes/${id}/approve`}>Approve</Link>
         },
     },
 ]

@@ -1,6 +1,6 @@
 import { FreezeSearchParams, FreezesResponse } from "../lib/definitions";
 
-import { CreateFreezeButton } from "@/components/freezes/table/create-freeze-button";
+import { CreateFreezeButton } from "@/components/freezes/create-freeze-button";
 import { DataTable } from "@/components/data-table";
 import Search from "@/components/freezes/table/search";
 import { authConfig } from "../lib/auth";
@@ -12,7 +12,7 @@ async function fetchFreezes(params: FreezeSearchParams): Promise<FreezesResponse
   const headers = new Headers()
   headers.append("Authorization", `Bearer ${session?.accessToken as string}`)
 
-  const url = new URL("https://freeze-staging.42.fr/api/v2/freezes")
+  const url = new URL("/api/v2/freezes", "https://freeze-staging.42.fr")
 
   if (params.hasOwnProperty("user")) {
     url.searchParams.append("user", params["user"])
@@ -26,13 +26,20 @@ export default async function FreezesPage({ searchParams }: { searchParams: Free
   const { items, total, page, size, pages }: FreezesResponse = await fetchFreezes(searchParams)
 
   return (
-    <main className="flex min-h-screen flex-col justify-start px-24 pb-24 space-y-2">
-      <h1 className="text-2xl font-bold mb-4">Welcome to Freeze Next</h1>
-      <div className="flex flex-row justify-between">
-        <Search />
-        <CreateFreezeButton />
+    <main>
+      <div className="space-y-6">
+        <div>
+          <h3 className="text-lg font-medium">Freezes</h3>
+          <p className="text-sm text-muted-foreground">
+            Manage students freezes from your campuses
+          </p>
+        </div>
+        <div className="flex flex-row justify-between">
+          <Search />
+          <CreateFreezeButton />
+        </div>
+        <DataTable data={items} columns={columns} />
       </div>
-      <DataTable data={items} columns={columns} />
     </main>
   )
 }

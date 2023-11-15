@@ -1,7 +1,7 @@
 import "@/styles/globals.css"
 
 import { Inter as FontSans } from "next/font/google"
-import { Navigation } from "@/components/navigation"
+import { MainNavigation } from "@/components/navigation"
 import SessionProvider from "@/components/session-provider"
 import { cn } from "@/lib/utils"
 import { getServerSession } from "next-auth"
@@ -25,7 +25,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       >
         <SessionProvider session={session}>
           <main>
-            <Navigation />
+            <MainNavigation />
             {children}
           </main>
         </SessionProvider>

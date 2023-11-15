@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@/components/ui/button";
+import { Power } from "lucide-react"
 import { signOut } from "next-auth/react";
 
 export const SignOutButton = () => {
@@ -9,6 +9,6 @@ export const SignOutButton = () => {
     };
   
     return (
-      <Button variant="ghost" onClick={handleClick}>Sign Out</Button>
+      <Power onClick={handleClick} className="cursor-pointer h-4" />
     );
   }

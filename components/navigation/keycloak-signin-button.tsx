@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@/components/ui/button";
+import { User } from "lucide-react"
 import { signIn } from "next-auth/react";
 
 export const KeycloakSignInButton = () => {
@@ -9,6 +9,6 @@ export const KeycloakSignInButton = () => {
     };
   
     return (
-      <Button variant="ghost" onClick={handleClick}>Continue with Keycloak</Button>
+      <User onClick={handleClick} className="cursor-pointer h-4" />
     );
   }
