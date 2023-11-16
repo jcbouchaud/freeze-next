@@ -29,7 +29,6 @@ export async function MainNavigation() {
                                 height={32}
                             />
                         </div>
-                        <NavigationLink href="/">Home</NavigationLink>
                         <NavigationLink href="/freezes">Freezes</NavigationLink>
                         <NavigationLink href="/event-journal">Event Journal</NavigationLink>
                     </div>
