@@ -13,19 +13,19 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { cn, formatDurationFromInterval } from "@/app/lib/utils";
+import { cn, formatDurationFromInterval } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "../../ui/calendar";
 import { CalendarIcon } from "lucide-react";
 import { FormButtons } from "@/components/form/form-buttons";
 import { FormError } from "../../form/form-error";
-import { FreezeCreateFormValues } from "@/app/lib/definitions";
+import { FreezeCreateFormValues } from "@/lib/definitions";
 import { Input } from "../../ui/input";
 import { Textarea } from "../../ui/textarea";
-import { createFreeze } from "@/app/lib/action";
+import { createFreeze } from "@/lib/action";
 import { format } from "date-fns";
-import { freezeCreateSchema } from "@/app/lib/validators";
+import { freezeCreateSchema } from "@/lib/validators";
 import { useAsyncAction } from "@/hooks/use-async-action";
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';

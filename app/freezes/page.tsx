@@ -1,9 +1,9 @@
-import { FreezeSearchParams, FreezesResponse } from "../lib/definitions";
+import { FreezeSearchParams, FreezesResponse } from "../../lib/definitions";
 
 import { CreateFreezeButton } from "@/components/freezes/create-form";
 import { DataTable } from "@/components/data-table";
 import Search from "@/components/freezes/table/search";
-import { authConfig } from "../lib/auth";
+import { authConfig } from "../../lib/auth";
 import { columns } from "@/components/freezes/table/columns";
 import { getServerSession } from "next-auth";
 

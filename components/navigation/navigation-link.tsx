@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { cn } from "@/app/lib/utils"
+import { cn } from "@/lib/utils"
 import { usePathname } from "next/navigation"
 
 export const NavigationLink = ({ href, children }: { href: string, children: React.ReactNode }) => {

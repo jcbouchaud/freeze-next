@@ -1,5 +1,5 @@
 import { BanIcon, CheckCheckIcon, CheckIcon, PauseIcon, Undo2Icon, XIcon } from "lucide-react"
-import { Category, Status } from "@/app/lib/definitions";
+import { Category, Status } from "@/lib/definitions";
 
 import Link from "next/link"
 

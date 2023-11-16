@@ -1,6 +1,6 @@
 import Breadcrumbs from "@/components/breadcrumbs";
 import { Button } from "@/components/ui/button";
-import { updateFreezeStatus } from "@/app/lib/action";
+import { updateFreezeStatus } from "@/lib/action";
 
 export default function Cancel({ params }: { params: { id: number } }) {
     const id = params.id

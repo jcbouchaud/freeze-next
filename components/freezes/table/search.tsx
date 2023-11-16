@@ -1,4 +1,4 @@
-import { Category, FreezeSearchParams, Reason, Status } from '@/app/lib/definitions';
+import { Category, FreezeSearchParams, Reason, Status } from '@/lib/definitions';
 
 import SearchInput from '../../search/search-input';
 import { SearchSelect } from '@/components/search/search-select';
