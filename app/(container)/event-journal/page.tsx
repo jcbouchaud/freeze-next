@@ -1,7 +1,8 @@
-import { DataTable, Pagination } from "@/components/data-table";
 import { EventsResponse, EventsSearchParams } from "@/lib/definitions";
 
-import Search from "@/components/event-journal/table/search";
+import { DataTable, } from "@/components/data-table";
+import { Pagination } from "@/components/pagination";
+import Search from "@/components/event-journal/search";
 import { authConfig } from "@/lib/auth";
 import { buildUrlFromBrowserParams } from "@/lib/utils";
 import { columns } from "@/components/event-journal/columns";

@@ -1,11 +1,11 @@
 "use client"
 
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../../ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import {
     Popover,
     PopoverContent,
     PopoverTrigger
-} from "../../ui/popover";
+} from "../ui/popover";
 import {
     Select,
     SelectContent,
@@ -16,13 +16,13 @@ import {
 import { cn, formatDurationFromInterval } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
-import { Calendar } from "../../ui/calendar";
+import { Calendar } from "../ui/calendar";
 import { CalendarIcon } from "lucide-react";
 import { FormButtons } from "@/components/form/form-buttons";
-import { FormError } from "../../form/form-error";
+import { FormError } from "../form/form-error";
 import { FreezeCreateFormValues } from "@/lib/definitions";
-import { Input } from "../../ui/input";
-import { Textarea } from "../../ui/textarea";
+import { Input } from "../ui/input";
+import { Textarea } from "../ui/textarea";
 import { createFreeze } from "@/lib/action";
 import { format } from "date-fns";
 import { freezeCreateSchema } from "@/lib/validators";

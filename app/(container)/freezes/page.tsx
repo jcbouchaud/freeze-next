@@ -1,11 +1,12 @@
-import { DataTable, Pagination } from "@/components/data-table";
 import { FreezeSearchParams, FreezesResponse } from "@/lib/definitions";
 
-import { CreateFreezeButton } from "@/components/freezes/create-form";
-import Search from "@/components/freezes/table/search";
+import { CreateFreezeButton } from "@/components/freezes/create-freeze-button";
+import { DataTable } from "@/components/data-table";
+import { Pagination } from "@/components/pagination";
+import Search from "@/components/freezes/search";
 import { authConfig } from "@/lib/auth";
 import { buildUrlFromBrowserParams } from "@/lib/utils";
-import { columns } from "@/components/freezes/table/columns";
+import { columns } from "@/components/freezes/columns";
 import { getServerSession } from "next-auth";
 
 async function fetchFreezes(params: FreezeSearchParams): Promise<FreezesResponse> {

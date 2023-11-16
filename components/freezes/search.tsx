@@ -1,7 +1,7 @@
 import { Category, FreezeSearchParams, Status } from '@/lib/definitions';
 
 import { CopyUrlButton } from '@/components/copy-url-button';
-import SearchInput from '../../search/search-input';
+import SearchInput from '../search/search-input';
 import { SearchSelect } from '@/components/search/search-select';
 import { authConfig } from '@/lib/auth';
 import { getServerSession } from 'next-auth';
