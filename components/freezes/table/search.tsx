@@ -38,12 +38,12 @@ export default async function Search() {
         <div className='flex flex-col' >
             <div className="flex flex-col sm:flex-row gap-1.5">
                 <SearchInput<FreezeSearchParams> name="user" placeholder="Student id or login" />
-                <div className="flex flex-row gap-1.5">
+                <div className="flex-wrap sm:flex-nowrap flex flex-row gap-1.5">
                     <SearchSelect<FreezeSearchParams> name="status" options={statusOptions} />
                     <SearchSelect<FreezeSearchParams> name="category" options={categoryOptions} />
                     <SearchSelect<FreezeSearchParams> name="campus" options={campusOptions} />
-                    <CopyUrlButton />
                 </div>
+                <CopyUrlButton />
             </div>
         </div>
 

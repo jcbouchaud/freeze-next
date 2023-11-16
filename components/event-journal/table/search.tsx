@@ -23,13 +23,13 @@ export default async function Search() {
         })
 
     return (
-        <div className='flex flex-col' >
+        <div className='flex flex-col w-full' >
             <div className="flex flex-col sm:flex-row gap-1.5">
                 <SearchInput<EventsSearchParams> name="user" placeholder="Student id or login" />
-                <div className="flex flex-row gap-1.5">
+                <SearchInput<EventsSearchParams> name="result" placeholder="Filter by results keywords" />
+                <div className="flex-wrap sm:flex-nowrap flex flex-row gap-1.5">
                     <SearchSelect<EventsSearchParams> name="sources" options={sourceOptions} />
                     <SearchSelect<EventsSearchParams> name="campus" options={campusOptions} />
-                    <SearchInput<EventsSearchParams> name="result" placeholder="Filter by results keywords" />
                 </div>
                 <CopyUrlButton />
             </div>
