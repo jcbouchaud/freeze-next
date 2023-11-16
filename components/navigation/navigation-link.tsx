@@ -8,7 +8,7 @@ export const NavigationLink = ({ href, children }: { href: string, children: Rea
     const pathname = usePathname()
     const active = href === pathname
     return (
-        <Link href={href} className={cn(active && "text-foreground/70" ,"text-sm font-medium transition-colors hover:text-primary")}>
+        <Link href={href} className={cn(active && "text-foreground/70", "text-sm font-medium transition-colors hover:text-primary")}>
             {children}
         </Link>
     )

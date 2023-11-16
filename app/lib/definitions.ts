@@ -1,13 +1,16 @@
-export type Status =  "pending" | "ongoing" | "approved" | "interrupted" | "finished" | "reverted" | "cancelled";
+import { freezeCreateSchema } from "./validators";
+import { z } from "zod";
 
-export type Reason =  "personal" | "medical" | "professional";
+export type Status = "pending" | "ongoing" | "approved" | "interrupted" | "finished" | "reverted" | "cancelled";
 
-export type Category =  "bonus" | "compensation" | "regular";
+export type Reason = "personal" | "medical" | "professional";
+
+export type Category = "bonus" | "compensation" | "regular";
 
 export type User = {
     id: number;
     login: string;
-} 
+}
 
 export type Freeze = {
     id: number;
@@ -42,3 +45,5 @@ export type FreezeSearchParams = {
     category: Category;
     campuse: number;
 }
+
+export type FreezeCreateFormValues = z.infer<typeof freezeCreateSchema>

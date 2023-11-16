@@ -12,7 +12,7 @@ export default function Create() {
     ]
 
     return (
-        <main className="space-y-6">
+        <main className="space-y-6 container">
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <div className="w-full">
                 <CreateForm />

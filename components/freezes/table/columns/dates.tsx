@@ -27,7 +27,7 @@ export const DatesColumn = ({ begin_date, expected_end_date, effective_end_date 
                 <div className="flex flex-col">
                     <div>Begin date: {begin_date}</div>
                     <div>End date: {expected_end_date}</div>
-                    { effective_end_date && <div>Effective end date: {effective_end_date}</div> }
+                    {effective_end_date && <div>Effective end date: {effective_end_date}</div>}
                 </div>
             </HoverCardContent>
         </HoverCard>

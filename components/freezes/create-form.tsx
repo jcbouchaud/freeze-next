@@ -18,57 +18,34 @@ import { cn, formatDurationFromInterval } from "@/app/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "../ui/calendar";
 import { CalendarIcon } from "lucide-react";
+import { FormError } from "../form-error";
+import { FreezeCreateFormValues } from "@/app/lib/definitions";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { createFreeze } from "@/app/lib/action";
 import { format } from "date-fns";
+import { freezeCreateSchema } from "@/app/lib/validators";
+import { useAsyncAction } from "@/app/hooks/use-async-action";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { z } from "zod"
 import { zodResolver } from '@hookform/resolvers/zod';
 
-const ReasonSchema = z.union([
-    z.literal("personal"),
-    z.literal("medical"),
-    z.literal("professional")
-])
-
-const CategorySchema = z.union([
-    z.literal("bonus"),
-    z.literal("compensation"),
-    z.literal("regular")
-])
-
-const datesRangeSchema = z.object({
-    from: z.date(),
-    to: z.date()
-})
-
-// const datesRangeSchema = z.object({
-//     from: z.union([z.date(), z.undefined()]),
-//     to: z.date().optional()
-// })
-
-const freezeCreateSchema = z.object({
-    userId: z.string(),
-    reason: ReasonSchema,
-    category: CategorySchema,
-    datesRange: datesRangeSchema,
-    staffDescription: z.string().optional()
-})
-
-export type FreezeFormValues = z.infer<typeof freezeCreateSchema>
-
 export const CreateForm = () => {
-    const form = useForm<FreezeFormValues>({
+    const form = useForm<FreezeCreateFormValues>({
         resolver: zodResolver(freezeCreateSchema),
     })
 
     const router = useRouter()
+    const [executeAction, error] = useAsyncAction<FreezeCreateFormValues>(createFreeze);
+
+    const onSubmit = async (data: FreezeCreateFormValues) => {
+        await executeAction(data);
+    };
+
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(data => createFreeze(data))}>
-                <div className="rounded-md bg-gray-50 p-4 md:p-6 max-w-3xl">
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+                <div className="w-full rounded-md bg-gray-50 p-4 md:p-6 max-w-3xl">
                     {/* User id */}
                     <div className="mb-4">
                         <FormField
@@ -103,7 +80,6 @@ export const CreateForm = () => {
                                                 {" "}- {formatDurationFromInterval(field.value.from, field.value.to)}
                                             </span>
                                         }
-
                                     </FormLabel>
                                     <div className="grid gap-2">
                                         <Popover>
@@ -112,7 +88,7 @@ export const CreateForm = () => {
                                                     id="date"
                                                     variant={"outline"}
                                                     className={cn(
-                                                        "w-[300px] justify-start text-left font-normal",
+                                                        "justify-start text-left font-normal",
                                                         !field.value && "text-muted-foreground"
                                                     )}
                                                 >
@@ -225,9 +201,12 @@ export const CreateForm = () => {
                             )}
                         />
                     </div>
+                    <div className="h-4 mb-4">
+                        {error?.message && <FormError message={error.message} />}
+                    </div>
                     <div className="flex flex-row justify-end">
-                        <Button variant="ghost" onClick={() => router.back()}>Cancel</Button>
-                        <Button type="submit">Create Freeze</Button>
+                        <Button size="sm" type="button" variant="ghost" onClick={() => router.back()}>Cancel</Button>
+                        <Button size="sm" type="submit">Create</Button>
                     </div>
                 </div>
             </form >

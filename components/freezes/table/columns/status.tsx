@@ -43,7 +43,7 @@ export const StatusColumn = ({ status, approved_by, approved_at }: StatusColumnP
     if (!approved_by) {
         return <StatusField variant={status as Status} />
     }
-    
+
     return (
         <HoverCard>
             <HoverCardTrigger>

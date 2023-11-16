@@ -45,7 +45,7 @@ export function useSearchFilter<T extends keyof SearchParamsInterface>(
 
     const updateSearchFilter = (value?: SearchParamsInterface[T]) => {
         const params = new URLSearchParams(searchParams);
-        
+
         // if (typeof value === "string") {
         //     // Handle string values
         //     params.set(optionKey, value);
@@ -90,7 +90,7 @@ interface OptionsFilterProps<T> {
 
 export function OptionsFilter<T extends string>({ optionKey, title, options }: OptionsFilterProps<T>) {
     const { selectedValues, updateSearchFilter } = useSearchFilter(optionKey);
-    
+
     return (
         <Popover>
             <PopoverTrigger asChild>
@@ -151,7 +151,7 @@ export function OptionsFilter<T extends string>({ optionKey, title, options }: O
                                 return (
                                     <CommandItem
                                         key={`${option.value as T}`}
-                                        // onSelect={() => updateSearchFilter(values)}
+                                    // onSelect={() => updateSearchFilter(values)}
                                     >
                                         <div
                                             className={cn(

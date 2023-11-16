@@ -57,10 +57,16 @@ export const columns: ColumnDef<Freeze>[] = [
     },
     {
         accessorKey: "actions",
-        header: "actions",
+        header: "Actions",
         cell: ({ row }) => {
             const { id } = row.original
-            return <Link href={`/freezes/${id}/approve`}>Approve</Link>
+            return (
+                <div className="flex gap-2">
+                    <Link href={`/freezes/${id}/cancel`}>C</Link>
+                    <Link href={`/freezes/${id}/revert`}>R</Link>
+                    <Link href={`/freezes/${id}/interrupt`}>I</Link>
+                </div>
+            )
         },
     },
 ]

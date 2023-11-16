@@ -2,11 +2,10 @@ import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { addDays, format, formatDuration, intervalToDuration } from "date-fns"
 
- 
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
-
 
 export const convertDateToShortString = (date: Date) => {
   return format(date, "yyyy-MM-dd")
