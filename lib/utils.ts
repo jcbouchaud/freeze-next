@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { addDays, format, formatDuration, intervalToDuration } from "date-fns"
+import { BaseSearchParams } from "./definitions"
 
 
 export function cn(...inputs: ClassValue[]) {
@@ -18,4 +19,20 @@ export const formatDurationFromInterval = (beginDate: Date | string, endDate: Da
   })
 
   return formatDuration(interval, { format: ["years", "months", "days"] })
+}
+
+export function buildUrlFromBrowserParams<T extends BaseSearchParams>(url: URL, params: T) {
+  if (!params.size) {
+    url.searchParams.set("size", "10")
+  }
+
+  Object.entries(params).map(p => {
+    if (Array.isArray(p[1])) {
+      p[1].map(x => url.searchParams.append(p[0], x))
+    } else {
+      url.searchParams.set(p[0], p[1])
+    }
+  })
+
+  return url
 }

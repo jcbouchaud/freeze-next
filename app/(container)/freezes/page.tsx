@@ -1,31 +1,23 @@
 import { DataTable, Pagination } from "@/components/data-table";
-import { FreezeSearchParams, FreezesResponse } from "../../lib/definitions";
+import { FreezeSearchParams, FreezesResponse } from "@/lib/definitions";
 
 import { CreateFreezeButton } from "@/components/freezes/create-form";
 import Search from "@/components/freezes/table/search";
-import { authConfig } from "../../lib/auth";
+import { authConfig } from "@/lib/auth";
+import { buildUrlFromBrowserParams } from "@/lib/utils";
 import { columns } from "@/components/freezes/table/columns";
 import { getServerSession } from "next-auth";
 
 async function fetchFreezes(params: FreezeSearchParams): Promise<FreezesResponse> {
   const session = await getServerSession(authConfig)
   const url = new URL("/api/v2/freezes", "https://freeze-staging.42.fr")
+  const freezesURL = buildUrlFromBrowserParams<FreezeSearchParams>(url, params)
+  
   const headers = new Headers()
+  headers.append("Content-Type", "application/json")
   headers.append("Authorization", `Bearer ${session?.accessToken as string}`)
 
-  if (!params.size) {
-    url.searchParams.set("size", "10")
-  }
-
-  Object.entries(params).map(p => {
-    if (Array.isArray(p[1])) {
-      p[1].map(x => url.searchParams.append(p[0], x))
-    } else {
-      url.searchParams.set(p[0], p[1] as string)
-    }
-  })
-
-  return await fetch(url.toString(), { headers }).then((res) => res.json());
+  return await fetch(freezesURL, { headers }).then((res) => res.json());
 }
 
 

@@ -4,10 +4,8 @@ import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-r
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuLabel,
     DropdownMenuRadioGroup,
     DropdownMenuRadioItem,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -24,6 +22,7 @@ export const Pagination = ({ pages, size }: PaginationProps) => {
     const searchParams = useSearchParams();
     const { replace } = useRouter();
     const currentPage = Number(searchParams.get('page')) || 1;
+    const currentSize = Number(searchParams.get('size')) || size;
 
     const setPaginationParams = (key: "page" | "size", value: number) => {
         const params = new URLSearchParams(searchParams);
@@ -36,10 +35,10 @@ export const Pagination = ({ pages, size }: PaginationProps) => {
             <div className="text-sm font-medium">Results per page</div>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button variant="outline">{size}</Button>
+                    <Button variant="outline">{currentSize}</Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-56">
-                    <DropdownMenuRadioGroup value={size.toString()} onValueChange={(value) => setPaginationParams("size", Number(value))}>
+                    <DropdownMenuRadioGroup value={currentSize.toString()} onValueChange={(value) => setPaginationParams("size", Number(value))}>
                         <DropdownMenuRadioItem value="10">10</DropdownMenuRadioItem>
                         <DropdownMenuRadioItem value="20">20</DropdownMenuRadioItem>
                         <DropdownMenuRadioItem value="50">50</DropdownMenuRadioItem>

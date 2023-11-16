@@ -13,7 +13,7 @@ export const columns: ColumnDef<Freeze>[] = [
         accessorKey: "user",
         header: "User",
         cell: ({ row }) => {
-            const { user: user } = row.original
+            const { user } = row.original
             return <UserColumn id={user.id} login={user.login} />
         },
     },

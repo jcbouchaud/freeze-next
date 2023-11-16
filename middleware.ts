@@ -10,4 +10,4 @@ export default withAuth(
     }
 )
 
-export const config = { matcher: ["/freezes"] }
+export const config = { matcher: ["/freezes", "/event-journal"] }

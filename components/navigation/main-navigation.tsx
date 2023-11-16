@@ -22,6 +22,7 @@ export async function MainNavigation() {
                         />
                         <NavigationLink href="/">Home</NavigationLink>
                         <NavigationLink href="/freezes">Freezes</NavigationLink>
+                        <NavigationLink href="/event-journal">Event Journal</NavigationLink>
                     </div>
                     <div className="flex justify-normal items-start space-x-4 lg:space-x-6">
                         <ModeToggle />
