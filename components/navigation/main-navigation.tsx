@@ -1,4 +1,5 @@
 import { KeycloakSignInButton } from "./keycloak-signin-button";
+import { ModeToggle } from "../mode-toggle";
 import { NavigationLink } from "./navigation-link";
 import { SignOutButton } from "./signout-button";
 import { authConfig } from "@/lib/auth";
@@ -11,6 +12,7 @@ export async function MainNavigation() {
             <div className="container flex h-14 items-center">
                 <nav className="flex items-center space-x-4 lg:space-x-6">
                     {session ? <SignOutButton /> : <KeycloakSignInButton />}
+                    <ModeToggle />
                     <NavigationLink href="/">Home</NavigationLink>
                     <NavigationLink href="/freezes">Freezes</NavigationLink>
                 </nav>

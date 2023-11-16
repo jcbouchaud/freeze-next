@@ -44,7 +44,7 @@ export const CreateForm = () => {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
-                <div className="w-full rounded-md bg-gray-50 p-4 md:p-6 max-w-3xl">
+                <div className="w-full rounded-md bg-muted p-4 md:p-6 max-w-3xl">
                     {/* User id */}
                     <div className="mb-4">
                         <FormField

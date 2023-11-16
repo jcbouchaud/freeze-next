@@ -2,7 +2,8 @@ import "@/styles/globals.css"
 
 import { Inter as FontSans } from "next/font/google"
 import { MainNavigation } from "@/components/navigation"
-import SessionProvider from "@/components/session-provider"
+import SessionProvider from "@/components/providers/session-provider"
+import { ThemeProvider } from "@/components/providers/theme-provider"
 import { cn } from "@/lib/utils"
 import { getServerSession } from "next-auth"
 
@@ -23,12 +24,20 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           fontSans.variable
         )}
       >
-        <SessionProvider session={session}>
-          <main>
-            <MainNavigation />
-            {children}
-          </main>
-        </SessionProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <SessionProvider session={session}>
+            <main>
+              <MainNavigation />
+              {children}
+            </main>
+          </SessionProvider>
+        </ThemeProvider>
+
       </body>
     </html>
   )

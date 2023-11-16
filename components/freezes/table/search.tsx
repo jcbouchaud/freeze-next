@@ -1,5 +1,6 @@
 import { Category, FreezeSearchParams, Reason, Status } from '@/lib/definitions';
 
+import { CopyUrlButton } from '@/components/copy-url-button';
 import SearchInput from '../../search/search-input';
 import { SearchSelect } from '@/components/search/search-select';
 
@@ -27,6 +28,7 @@ export default function Search() {
                 <SearchInput<FreezeSearchParams> name="user" placeholder="Student id or login" />
                 <SearchSelect<FreezeSearchParams> name="status" options={statusOptions} />
                 <SearchSelect<FreezeSearchParams> name="category" options={categoryOptions} />
+                <CopyUrlButton />
             </div>
         </div>
 
