@@ -1,4 +1,4 @@
-import { Category, FreezeSearchParams, , Status } from '@/lib/definitions';
+import { Category, FreezeSearchParams, Status } from '@/lib/definitions';
 
 import { CopyUrlButton } from '@/components/copy-url-button';
 import SearchInput from '../../search/search-input';
