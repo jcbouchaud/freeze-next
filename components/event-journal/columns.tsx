@@ -12,8 +12,8 @@ export const columns: ColumnDef<Event>[] = [
             const { ts } = row.original
             return (
                 <div>
-                    <p>{format(new Date(ts), 'dd MMM, yyyy')}</p>
-                    <p>{format(new Date(ts), 'kk:mm:ss')}</p>
+                    <p className="font-bold">{format(new Date(ts), 'MMM dd, yyyy')}</p>
+                    <p className="text-muted-foreground italic">{format(new Date(ts), 'kk:mm:ss')}</p>
                 </div>
             )
         }
@@ -32,7 +32,7 @@ export const columns: ColumnDef<Event>[] = [
             const { campus_city, campus_name } = row.original
             return (
                 <div>
-                    <p>{campus_name}</p>
+                    <p className="font-bold">{campus_name}</p>
                     <p>{campus_city}</p>
                 </div>
             )
