@@ -72,6 +72,7 @@ export type EventsSearchParams = {
     user: string;
     sources: Source;
     campus: number;
+    result: string;
 } & BaseSearchParams
 
 export type FreezeCreateFormValues = z.infer<typeof freezeCreateSchema>

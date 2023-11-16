@@ -20,6 +20,7 @@ export const CopyUrlButton = () => {
             onClick={handleCopy}
         >
             <Copy className="h-4 w-4" />
+            <span className="block ml-2 sm:hidden md:02">Copy</span>
         </Button>
     )
 }

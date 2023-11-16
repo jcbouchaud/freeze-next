@@ -24,5 +24,5 @@ export default function SearchInput<T>({ name, ...props }: SearchInputProps<T>) 
         replace(`${pathname}?${params.toString()}`);
     }
 
-    return <Input className="h-9" type="text" onChange={(e) => handleSearch(e.target.value)} {...props} />
+    return <Input className="h-9 min-w-[200px]" type="text" onChange={(e) => handleSearch(e.target.value)} {...props} />
 }

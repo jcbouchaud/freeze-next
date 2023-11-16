@@ -12,7 +12,7 @@ export async function MainNavigation() {
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 mb-4">
             <div className="container flex h-14 items-center">
                 <nav className="flex justify-between w-full">
-                    <div className="flex justify-start items-center space-x-4 lg:space-x-6">
+                    <div className="flex justify-start items-center space-x-8 lg:space-x-12">
                         <div>
                             <Image
                                 src="/42-staff-logo.svg"

@@ -33,7 +33,7 @@ export default async function FreezesPage({ searchParams }: { searchParams: Free
             Manage students freezes from your campuses
           </p>
         </div>
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-col-reverse lg:flex-row justify-between gap-2">
           <Search />
           <CreateFreezeButton />
         </div>

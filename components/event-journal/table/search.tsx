@@ -1,4 +1,4 @@
-import { Category, EventsSearchParams, FreezeSearchParams, Source, Status } from '@/lib/definitions';
+import { EventsSearchParams, Source } from '@/lib/definitions';
 
 import { CopyUrlButton } from '@/components/copy-url-button';
 import SearchInput from '../../search/search-input';
@@ -10,7 +10,7 @@ export default async function Search() {
     const session = await getServerSession(authConfig);
 
     if (!session) return null
-    
+
     const sourceOptions: Array<{ label: string, value: Source }> = [
         { label: "Freeze", value: "freeze.freezes" },
         { label: "Pace System", value: "pace_system.milestones" },
@@ -24,10 +24,13 @@ export default async function Search() {
 
     return (
         <div className='flex flex-col' >
-            <div className="flex flex-row gap-1.5">
+            <div className="flex flex-col sm:flex-row gap-1.5">
                 <SearchInput<EventsSearchParams> name="user" placeholder="Student id or login" />
-                <SearchSelect<EventsSearchParams> name="sources" options={sourceOptions} />
-                <SearchSelect<EventsSearchParams> name="campus" options={campusOptions} />
+                <div className="flex flex-row gap-1.5">
+                    <SearchSelect<EventsSearchParams> name="sources" options={sourceOptions} />
+                    <SearchSelect<EventsSearchParams> name="campus" options={campusOptions} />
+                    <SearchInput<EventsSearchParams> name="result" placeholder="Filter by results keywords" />
+                </div>
                 <CopyUrlButton />
             </div>
         </div>

@@ -10,7 +10,7 @@ export default async function Search() {
     const session = await getServerSession(authConfig);
 
     if (!session) return null
-    
+
     const categoryOptions: Array<{ label: string, value: Category }> = [
         { label: "regular", value: "regular" },
         { label: "compensation", value: "compensation" },
@@ -36,12 +36,14 @@ export default async function Search() {
 
     return (
         <div className='flex flex-col' >
-            <div className="flex flex-row gap-1.5">
+            <div className="flex flex-col sm:flex-row gap-1.5">
                 <SearchInput<FreezeSearchParams> name="user" placeholder="Student id or login" />
-                <SearchSelect<FreezeSearchParams> name="status" options={statusOptions} />
-                <SearchSelect<FreezeSearchParams> name="category" options={categoryOptions} />
-                <SearchSelect<FreezeSearchParams> name="campus" options={campusOptions} />
-                <CopyUrlButton />
+                <div className="flex flex-row gap-1.5">
+                    <SearchSelect<FreezeSearchParams> name="status" options={statusOptions} />
+                    <SearchSelect<FreezeSearchParams> name="category" options={categoryOptions} />
+                    <SearchSelect<FreezeSearchParams> name="campus" options={campusOptions} />
+                    <CopyUrlButton />
+                </div>
             </div>
         </div>
 
