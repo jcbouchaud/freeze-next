@@ -7,21 +7,21 @@ export default function Cancel({ params }: { params: { id: number } }) {
     const breadcrumbs = [
         { label: 'Freezes', href: '/freezes' },
         {
-            label: 'Cancel',
-            href: `/freezes/${id}/cancel`,
+            label: 'Approve',
+            href: `/freezes/${id}/approve`,
             active: true,
         },
     ]
 
-    const updateFreezeStatusWithId = updateFreezeStatus.bind(null, id, "cancel")
+    const updateFreezeStatusWithId = updateFreezeStatus.bind(null, id, "approve")
 
     return (
         <main className="h-full flex flex-col">
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <div className="w-full">
-                Cancel freeze with {id}
+                Approve freeze with {id}
                 <form action={updateFreezeStatusWithId}>
-                    <Button type="submit">Cancel</Button>
+                    <Button type="submit">Approve</Button>
                 </form>
             </div>
         </main>

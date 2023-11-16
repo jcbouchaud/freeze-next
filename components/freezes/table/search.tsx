@@ -1,31 +1,32 @@
-"use client"
+import { Category, FreezeSearchParams, Reason, Status } from '@/app/lib/definitions';
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-
-import { FreezeSearchParams } from '@/app/lib/definitions';
-import { Input } from "@/components/ui/input"
+import SearchInput from '../../search/search-input';
+import { SearchSelect } from '@/components/search/search-select';
 
 export default function Search() {
-    const searchParams = useSearchParams();
-    const pathname = usePathname();
-    const { replace } = useRouter();
-
-    const handleSearch = (key: keyof FreezeSearchParams, value: any) => {
-        const params = new URLSearchParams(searchParams);
-        params.set('page', '1');
-
-        if (value) {
-            params.set(key, value);
-        } else {
-            params.delete(key);
-        }
-        replace(`${pathname}?${params.toString()}`);
-    }
-
+    const categoryOptions: Array<{ label: string, value: Category }> = [
+        { label: "regular", value: "regular" },
+        { label: "compensation", value: "compensation" },
+        { label: "bonus", value: "bonus" }
+    ]
+    
+    const statusOptions: Array<{ label: string, value: Status }> = [
+        { label: "approved", value: "approved" },
+        { label: "pending", value: "pending" },
+        { label: "ongoing", value: "ongoing" },
+        { label: "interrupted", value: "interrupted" },
+        { label: "cancelled", value: "cancelled" },
+        { label: "rejected", value: "rejected" },
+        { label: "reverted", value: "reverted" },
+        { label: "finished", value: "finished" },
+    ]
+    
     return (
         <div className='flex flex-col' >
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-                <Input type="user" id="user" placeholder="User" onChange={(e) => handleSearch("user", e.target.value)} />
+            <div className="flex flex-row gap-1.5">
+                <SearchInput<FreezeSearchParams> name="user" placeholder="User id or login" />
+                <SearchSelect<FreezeSearchParams> name="category" options={categoryOptions} />
+                <SearchSelect<FreezeSearchParams> name="status" options={statusOptions} />
             </div>
         </div>
 

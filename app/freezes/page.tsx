@@ -14,9 +14,9 @@ async function fetchFreezes(params: FreezeSearchParams): Promise<FreezesResponse
 
   const url = new URL("/api/v2/freezes", "https://freeze-staging.42.fr")
 
-  if (params.hasOwnProperty("user")) {
-    url.searchParams.append("user", params["user"])
-  }
+  // if (params.hasOwnProperty("user")) {
+  //   url.searchParams.append("user", params["user"])
+  // }
 
   return await fetch(url.toString(), { headers }).then((res) => res.json());
 }

@@ -1,10 +1,10 @@
 "use client"
 
+import { ActionsColumn } from "./actions";
 import { ColumnDef } from "@tanstack/react-table";
 import { DatesColumn } from "./dates";
 import { DescriptionColumn } from "./description";
 import { Freeze } from "@/lib/definitions";
-import Link from "next/link";
 import { StatusColumn } from "./status";
 import { UserColumn } from "./user";
 
@@ -59,14 +59,8 @@ export const columns: ColumnDef<Freeze>[] = [
         accessorKey: "actions",
         header: "Actions",
         cell: ({ row }) => {
-            const { id } = row.original
-            return (
-                <div className="flex gap-2">
-                    <Link href={`/freezes/${id}/cancel`}>C</Link>
-                    <Link href={`/freezes/${id}/revert`}>R</Link>
-                    <Link href={`/freezes/${id}/interrupt`}>I</Link>
-                </div>
-            )
+            const { id, status, category, begin_date } = row.original
+            return <ActionsColumn id={id} status={status} category={category} beginDate={begin_date} />
         },
     },
 ]

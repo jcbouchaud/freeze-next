@@ -1,7 +1,7 @@
 import { freezeCreateSchema } from "./validators";
 import { z } from "zod";
 
-export type Status = "pending" | "ongoing" | "approved" | "interrupted" | "finished" | "reverted" | "cancelled";
+export type Status = "pending" | "ongoing" | "approved" | "interrupted" | "finished" | "reverted" | "cancelled" | "rejected";
 
 export type Reason = "personal" | "medical" | "professional";
 
