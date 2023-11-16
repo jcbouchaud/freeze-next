@@ -13,6 +13,10 @@ async function fetchFreezes(params: FreezeSearchParams): Promise<FreezesResponse
   const headers = new Headers()
   headers.append("Authorization", `Bearer ${session?.accessToken as string}`)
 
+  if (!params.size) {
+    url.searchParams.set("size", "10")
+  }
+
   Object.entries(params).map(p => {
     if (Array.isArray(p[1])) {
       p[1].map(x => url.searchParams.append(p[0], x))

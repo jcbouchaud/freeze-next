@@ -1,6 +1,6 @@
 "use client"
 
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { Button } from "../ui/button"
@@ -31,7 +31,7 @@ export const Pagination = ({ pages, size }: PaginationProps) => {
                 disabled={currentPage === 1}
             >
                 <span className="sr-only">go_to_first_page</span>
-                <ChevronLeft className="h-4 w-4" />
+                <ChevronsLeft className="h-4 w-4" />
             </Button>
             <Button
                 variant="outline"
@@ -58,7 +58,7 @@ export const Pagination = ({ pages, size }: PaginationProps) => {
                 disabled={currentPage === pages}
             >
                 <span className="sr-only">go_to_last_page</span>
-                <ChevronRight className="h-4 w-4" />
+                <ChevronsRight className="h-4 w-4" />
             </Button>
         </div>
     )

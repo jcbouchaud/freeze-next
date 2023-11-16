@@ -7,8 +7,14 @@ declare module "next-auth" {
   interface Session {
     /** Oauth access token */
     accessToken?: string;
+    campuses: Array<string>;
     user: {
         id: string;
+        campuses: Array<string>;
     } & DefaultSession["user"];
+  }
+  
+  interface Profile {
+    campus: Array<string>;
   }
 }

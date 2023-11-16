@@ -11,7 +11,10 @@ export const authConfig: NextAuthOptions = {
     ],
     session: { strategy: "jwt" },
     callbacks: {
-        async jwt({ token, account, user }) {
+        async jwt({ token, account, user, profile }) {
+            if (profile) {
+                token.campuses = profile.campus
+            }
             if (account) {
                 token.accessToken = account.access_token
                 token.id = user.id
@@ -21,6 +24,7 @@ export const authConfig: NextAuthOptions = {
         async session({ session, token, user }) {
             session.accessToken = token.accessToken as string
             session.user.id = token.id as string
+            session.campuses = token.campuses as Array<string>
 
             return session
         }

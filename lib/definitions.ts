@@ -43,7 +43,7 @@ export type FreezeSearchParams = {
     user: string;
     status: Status;
     category: Category;
-    campuse: number;
+    campus: number;
 }
 
 export type FreezeCreateFormValues = z.infer<typeof freezeCreateSchema>
