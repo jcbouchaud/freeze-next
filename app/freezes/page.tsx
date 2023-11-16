@@ -1,6 +1,6 @@
 import { FreezeSearchParams, FreezesResponse } from "../lib/definitions";
 
-import { CreateFreezeButton } from "@/components/freezes/create-freeze-button";
+import { CreateFreezeButton } from "@/components/freezes/create-form";
 import { DataTable } from "@/components/data-table";
 import Search from "@/components/freezes/table/search";
 import { authConfig } from "../lib/auth";
