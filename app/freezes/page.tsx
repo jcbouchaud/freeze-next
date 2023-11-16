@@ -9,14 +9,17 @@ import { getServerSession } from "next-auth";
 
 async function fetchFreezes(params: FreezeSearchParams): Promise<FreezesResponse> {
   const session = await getServerSession(authConfig)
+  const url = new URL("/api/v2/freezes", "https://freeze-staging.42.fr")
   const headers = new Headers()
   headers.append("Authorization", `Bearer ${session?.accessToken as string}`)
 
-  const url = new URL("/api/v2/freezes", "https://freeze-staging.42.fr")
-
-  // if (params.hasOwnProperty("user")) {
-  //   url.searchParams.append("user", params["user"])
-  // }
+  Object.entries(params).map(p => {
+    if (Array.isArray(p[1])) {
+      p[1].map(x => url.searchParams.append(p[0], x))
+    } else {
+      url.searchParams.set(p[0], p[1] as string)
+    }
+  })
 
   return await fetch(url.toString(), { headers }).then((res) => res.json());
 }

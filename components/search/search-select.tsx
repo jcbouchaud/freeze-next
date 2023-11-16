@@ -29,7 +29,6 @@ export function SearchSelect<T>({ name, options }: SearchSelectProps<T>) {
     const { replace } = useRouter();
 
     const values = searchParams.getAll(name as string)
-    console.log(values)
 
     const handleSelect = (value: string | undefined) => {
         const params = new URLSearchParams(searchParams);
@@ -42,8 +41,6 @@ export function SearchSelect<T>({ name, options }: SearchSelectProps<T>) {
                 params.append(name as string, value)
             } else {
                 params.delete(name as string)
-                console.log(values.filter(x => x !== value))
-
                 values.filter(x => x !== value).forEach((v) => {
                     params.append(name as string, v)
                 })

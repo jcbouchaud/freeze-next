@@ -9,7 +9,7 @@ export default function Search() {
         { label: "compensation", value: "compensation" },
         { label: "bonus", value: "bonus" }
     ]
-    
+
     const statusOptions: Array<{ label: string, value: Status }> = [
         { label: "approved", value: "approved" },
         { label: "pending", value: "pending" },
@@ -20,13 +20,13 @@ export default function Search() {
         { label: "reverted", value: "reverted" },
         { label: "finished", value: "finished" },
     ]
-    
+
     return (
         <div className='flex flex-col' >
             <div className="flex flex-row gap-1.5">
                 <SearchInput<FreezeSearchParams> name="user" placeholder="User id or login" />
-                <SearchSelect<FreezeSearchParams> name="category" options={categoryOptions} />
                 <SearchSelect<FreezeSearchParams> name="status" options={statusOptions} />
+                <SearchSelect<FreezeSearchParams> name="category" options={categoryOptions} />
             </div>
         </div>
 
