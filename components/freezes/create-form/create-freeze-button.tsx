@@ -6,8 +6,8 @@ export const CreateFreezeButton = () => {
     return (
         <Link href="/freezes/create">
             <Button variant="outline">
-                <PlusCircle className="mr-2 h-4 w-4" />
-                <span>Create a Freeze</span>
+                <PlusCircle className="h-4 w-4" />
+                <span className="hidden lg:block lg:ml-2">Create a Freeze</span>
             </Button>
         </Link>
     )

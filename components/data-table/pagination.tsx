@@ -1,6 +1,15 @@
 "use client"
 
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuLabel,
+    DropdownMenuRadioGroup,
+    DropdownMenuRadioItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { Button } from "../ui/button"
@@ -15,15 +24,31 @@ export const Pagination = ({ pages, size }: PaginationProps) => {
     const searchParams = useSearchParams();
     const { replace } = useRouter();
     const currentPage = Number(searchParams.get('page')) || 1;
-    
+
     const setPaginationParams = (key: "page" | "size", value: number) => {
         const params = new URLSearchParams(searchParams);
         params.set(key, value.toString());
         replace(`${pathname}?${params.toString()}`);
     };
-    
+
     return (
         <div className="flex items-center justify-end space-x-2">
+            <div className="text-sm font-medium">Results per page</div>
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="outline">{size}</Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                    <DropdownMenuRadioGroup value={size.toString()} onValueChange={(value) => setPaginationParams("size", Number(value))}>
+                        <DropdownMenuRadioItem value="10">10</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="20">20</DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem value="50">50</DropdownMenuRadioItem>
+                    </DropdownMenuRadioGroup>
+                </DropdownMenuContent>
+            </DropdownMenu>
+            <div className="flex min-w-[100px] items-center justify-center text-sm font-medium">
+                {pages > 1 && `Page ${currentPage} of ${pages}`}
+            </div>
             <Button
                 variant="outline"
                 className="hidden h-8 w-8 p-0 lg:flex"
