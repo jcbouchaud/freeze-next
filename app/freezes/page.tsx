@@ -1,7 +1,7 @@
+import { DataTable, Pagination } from "@/components/data-table";
 import { FreezeSearchParams, FreezesResponse } from "../../lib/definitions";
 
 import { CreateFreezeButton } from "@/components/freezes/create-form";
-import { DataTable } from "@/components/data-table";
 import Search from "@/components/freezes/table/search";
 import { authConfig } from "../../lib/auth";
 import { columns } from "@/components/freezes/table/columns";
@@ -26,7 +26,7 @@ async function fetchFreezes(params: FreezeSearchParams): Promise<FreezesResponse
 
 
 export default async function FreezesPage({ searchParams }: { searchParams: FreezeSearchParams }) {
-  const { items, total, page, size, pages }: FreezesResponse = await fetchFreezes(searchParams)
+  const { items, size, pages }: FreezesResponse = await fetchFreezes(searchParams)
 
   return (
     <main>
@@ -42,6 +42,7 @@ export default async function FreezesPage({ searchParams }: { searchParams: Free
           <CreateFreezeButton />
         </div>
         <DataTable data={items} columns={columns} />
+        <Pagination pages={pages} size={size} />
       </div>
     </main>
   )

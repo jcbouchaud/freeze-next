@@ -24,7 +24,7 @@ export default function Search() {
     return (
         <div className='flex flex-col' >
             <div className="flex flex-row gap-1.5">
-                <SearchInput<FreezeSearchParams> name="user" placeholder="User id or login" />
+                <SearchInput<FreezeSearchParams> name="user" placeholder="Student id or login" />
                 <SearchSelect<FreezeSearchParams> name="status" options={statusOptions} />
                 <SearchSelect<FreezeSearchParams> name="category" options={categoryOptions} />
             </div>
