@@ -1,3 +1,4 @@
-import { MainNavigation } from "./main-navigation";
+import { BottomNav } from "./bottom-nav";
+import { SideNav } from "./side-nav";
 
-export { MainNavigation }
+export { SideNav, BottomNav }

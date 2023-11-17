@@ -1,7 +1,8 @@
 import "@/styles/globals.css"
 
+import { BottomNav, SideNav } from "@/components/navigation"
+
 import { Inter as FontSans } from "next/font/google"
-import { MainNavigation } from "@/components/navigation"
 import SessionProvider from "@/components/providers/session-provider"
 import { ThemeProvider } from "@/components/providers/theme-provider"
 import { cn } from "@/lib/utils"
@@ -20,7 +21,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <head />
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased pb-4",
+          "min-h-screen bg-background font-sans antialiased",
           fontSans.variable
         )}
       >
@@ -31,9 +32,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           disableTransitionOnChange
         >
           <SessionProvider session={session}>
-            <main>
-              <MainNavigation />
-              {children}
+            <main className="flex flex-col sm:flex-row">
+              {/* <MainNavigation /> */}
+              <div className="z-10">
+                <SideNav />
+                <BottomNav />
+              </div>
+              <div className="z-0">
+                {children}
+              </div>
             </main>
           </SessionProvider>
         </ThemeProvider>

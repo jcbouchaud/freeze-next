@@ -13,7 +13,7 @@ export const SignOutButton = () => {
     <Button
       variant="ghost"
       size="icon"
-      className="flex flex-row items-center justify-center h-9 border rounded-sm"
+      className="flex flex-row items-center justify-center h-9 rounded-sm"
       onClick={handleClick}
     >
       <Power className="h-4" />

@@ -9,18 +9,21 @@ import { buildUrlFromBrowserParams } from "@/lib/utils";
 import { columns } from "@/components/freezes/columns";
 import { getServerSession } from "next-auth";
 
+export const metadata = {
+  title: 'Staff - Freeze',
+}
+
 async function fetchFreezes(params: FreezeSearchParams): Promise<FreezesResponse> {
   const session = await getServerSession(authConfig)
   const url = new URL("/api/v2/freezes", "https://freeze-staging.42.fr")
   const freezesURL = buildUrlFromBrowserParams<FreezeSearchParams>(url, params)
-  
+
   const headers = new Headers()
   headers.append("Content-Type", "application/json")
   headers.append("Authorization", `Bearer ${session?.accessToken as string}`)
 
   return await fetch(freezesURL, { headers }).then((res) => res.json());
 }
-
 
 export default async function FreezesPage({ searchParams }: { searchParams: FreezeSearchParams }) {
   const { items, size, pages }: FreezesResponse = await fetchFreezes(searchParams)

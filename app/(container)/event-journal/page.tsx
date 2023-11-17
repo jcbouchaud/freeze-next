@@ -8,6 +8,10 @@ import { buildUrlFromBrowserParams } from "@/lib/utils";
 import { columns } from "@/components/event-journal/columns";
 import { getServerSession } from "next-auth";
 
+export const metadata = {
+  title: 'Staff - Event journal',
+}
+
 async function fetchEvents(params: EventsSearchParams): Promise<EventsResponse> {
   const session = await getServerSession(authConfig)
   const url = new URL("/events/", "https://event-journal-staging.42.fr")
@@ -19,7 +23,6 @@ async function fetchEvents(params: EventsSearchParams): Promise<EventsResponse> 
 
   return await fetch(eventsURL, { headers }).then((res) => res.json());
 }
-
 
 export default async function EventJournal({ searchParams }: { searchParams: EventsSearchParams }) {
   const { items, size, pages }: EventsResponse = await fetchEvents(searchParams)

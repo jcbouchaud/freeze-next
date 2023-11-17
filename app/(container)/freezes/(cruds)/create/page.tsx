@@ -1,6 +1,10 @@
 import Breadcrumbs from "@/components/breadcrumbs";
 import { CreateForm } from "@/components/freezes/create-form";
 
+export const metadata = {
+    title: 'Staff - Freeze - Create',
+}
+
 export default function Create() {
     const breadcrumbs = [
         { label: 'Freezes', href: '/freezes' },
@@ -12,7 +16,7 @@ export default function Create() {
     ]
 
     return (
-        <main className="space-y-6 container">
+        <main className="space-y-6">
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <div className="w-full">
                 <CreateForm />
