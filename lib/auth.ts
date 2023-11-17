@@ -50,7 +50,7 @@ export const authConfig: NextAuthOptions = {
             clientId: process.env.KEYCLOAK_CLIENT_ID as string,
             clientSecret: process.env.KEYCLOAK_CLIENT_SECRET as string,
             issuer: process.env.AUTH_ISSUER as string,
-            requestTokenUrl: process.env.KEYCLOAK_AUTH_TOKEN_URL,
+            requestTokenUrl: process.env.KEYCLOAK_AUTH_TOKEN_URL as string,
         }),
     ],
     session: { strategy: "jwt" },

@@ -59,8 +59,7 @@ export const columns: ColumnDef<Freeze>[] = [
         accessorKey: "actions",
         header: "Actions",
         cell: ({ row }) => {
-            const { id, status, category, begin_date } = row.original
-            return <ActionsColumn id={id} status={status} category={category} beginDate={begin_date} />
+            return <ActionsColumn {...row.original} />
         },
     },
 ]

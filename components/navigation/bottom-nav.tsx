@@ -8,7 +8,7 @@ export const BottomNav = async () => {
     const session = await getServerSession(authConfig)
 
     return (
-        <nav className="w-screen py-2 fixed bottom-0 l-0 flex flex-row items-center justify-around bg-background border-t sm:hidden">
+        <nav className="w-screen py-2 fixed border-t-muted bottom-0 l-0 flex flex-row items-center justify-around bg-background border-t sm:hidden">
                 <BottomNavLink href="/freezes">
                     <div className="flex flex-col items-center justify-between">
                         <Snowflake className="h-4" />

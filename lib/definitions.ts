@@ -1,6 +1,8 @@
 import { freezeCreateSchema } from "./validators";
 import { z } from "zod";
 
+export type Action = "approve" | "force-approve" | "reject" | "cancel" | "revert" | "interrupted"
+
 export type Status = "pending" | "ongoing" | "approved" | "interrupted" | "finished" | "reverted" | "cancelled" | "rejected";
 
 export type Reason = "personal" | "medical" | "professional";
