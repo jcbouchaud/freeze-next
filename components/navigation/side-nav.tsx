@@ -36,7 +36,7 @@ export const SideNav = async () => {
                 <SideNavLink href="/sma"><SendToBack className="mr-1 h-4" /><span className="hidden lg:block">SMA</span></SideNavLink>
             </div>
             <div className="h-full flex flex-col justify-end">
-                <div className="flex flex-col items-center lg:flex-row lg:justify-around w-full">
+                <div className="gap-2 flex flex-col items-center lg:flex-row lg:justify-around w-full">
                     <ModeToggle />
                     <LangToggle />
                     {session ? <SignOutButton /> : <KeycloakSignInButton />}

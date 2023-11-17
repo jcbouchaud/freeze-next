@@ -13,7 +13,7 @@ export const KeycloakSignInButton = () => {
     <Button
       variant="ghost"
       size="icon"
-      className="flex flex-row items-center justify-center h-9 border rounded-sm"
+      className="flex flex-row items-center justify-center h-9"
       onClick={handleClick}
     >
       <User className="h-4" />
