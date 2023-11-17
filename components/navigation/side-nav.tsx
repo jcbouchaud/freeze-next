@@ -35,10 +35,10 @@ export const SideNav = async () => {
                 <SideNavLink href="/event-journal"><Newspaper className="mr-1 h-4" /><span className="hidden lg:block">Event journal</span></SideNavLink>
             </div>
             <div className="h-full flex flex-col justify-end">
-                <div className="flex flex-col-reverse items-center lg:flex-row lg:justify-around w-full">
-                    {session ? <SignOutButton /> : <KeycloakSignInButton />}
+                <div className="flex flex-col items-center lg:flex-row lg:justify-around w-full">
                     <ModeToggle />
                     <LangToggle />
+                    {session ? <SignOutButton /> : <KeycloakSignInButton />}
                 </div>
             </div>
         </nav>
