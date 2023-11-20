@@ -1,6 +1,6 @@
 'use server';
 
-import { Action, FreezeActionFormValues, FreezeActionWithDescriptionFormValues, FreezeCreateFormValues } from './definitions';
+import { FreezeActionFormValues, FreezeCreateFormValues } from './definitions';
 
 import { authConfig } from './auth';
 import { convertDateToShortString } from './utils';
@@ -9,7 +9,8 @@ import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 
 export async function createFreeze(data: FreezeCreateFormValues) {
-    const session = await getServerSession(authConfig)
+    const { userId, reason, category, datesRange, staffDescription } = data;
+    const session = await getServerSession(authConfig);
 
     const url = new URL("/api/v2/freezes?force=true", "https://freeze-staging.42.fr");
 
@@ -18,12 +19,12 @@ export async function createFreeze(data: FreezeCreateFormValues) {
     headers.append("Authorization", `Bearer ${session?.accessToken}`)
 
     const body = JSON.stringify({
-        user_id: data.userId,
-        reason: data.reason,
-        category: data.category,
-        begin_date: convertDateToShortString(data.datesRange.from),
-        expected_end_date: convertDateToShortString(data.datesRange.to),
-        staff_description: data.staffDescription,
+        user_id: userId,
+        reason: reason,
+        category: category,
+        begin_date: convertDateToShortString(datesRange.from),
+        expected_end_date: convertDateToShortString(datesRange.to),
+        staff_description: staffDescription,
     })
 
     const res = await fetch(url, {
@@ -42,27 +43,30 @@ export async function createFreeze(data: FreezeCreateFormValues) {
 }
 
 
-export async function updateFreezeStatus(data: FreezeActionFormValues | FreezeActionWithDescriptionFormValues) {
+export async function updateFreezeStatus(params: string, data: FreezeActionFormValues) {
+    const { id, action, staffDescription } = data;
     const session = await getServerSession(authConfig)
 
-    const url = new URL(`/api/v2/freezes/${data.id}/${data.action}`, "https://freeze-staging.42.fr");
+    const url = new URL(`/api/v2/freezes/${id}/${action}`, "https://freeze-staging.42.fr");
 
     const headers = new Headers()
     headers.append("Content-Type", "application/json")
     headers.append("Authorization", `Bearer ${session?.accessToken}`)
+    
+    const body = staffDescription ? JSON.stringify({ staff_description: staffDescription }) : null;
+    
 
     const res = await fetch(url, {
         headers,
         method: "POST",
-        body: JSON.stringify(data)
+        body
     })
 
     if (!res.ok) {
         const error = await res.json()
-        console.log(error)
         throw Error(error.detail)
     }
 
     revalidatePath('/freezes');
-    redirect('/freezes?status=pending');
+    redirect('/freezes');
 }

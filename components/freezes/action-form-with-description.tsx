@@ -1,13 +1,12 @@
 "use client"
 
-import { Action, FreezeActionWithDescriptionFormValues } from "@/lib/definitions";
+import { Action, FreezeActionFormValues } from "@/lib/definitions";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 
 import { FormButtons } from "@/components/form/form-buttons";
 import { FormError } from "../form/form-error";
-import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
-import { freezeActionWithDescriptionSchema } from "@/lib/validators";
+import { freezeActionSchema } from "@/lib/validators";
 import { updateFreezeStatus } from "@/lib/action";
 import { useAsyncAction } from "@/hooks/use-async-action";
 import { useForm } from "react-hook-form";
@@ -20,14 +19,17 @@ type ActionFormWithDescriptionProps = {
 }
 
 export const ActionFormWithDescription = ({ id, action, children }: ActionFormWithDescriptionProps) => {
-    const form = useForm<FreezeActionWithDescriptionFormValues>({
-        resolver: zodResolver(freezeActionWithDescriptionSchema),
+    const form = useForm<FreezeActionFormValues>({
+        resolver: zodResolver(freezeActionSchema),
         defaultValues: { id: Number(id), action }
     })
 
-    const [executeAction, error] = useAsyncAction<FreezeActionWithDescriptionFormValues>(updateFreezeStatus);
+    const updateFreezeStatusWithPath = updateFreezeStatus.bind(null, "userId")
 
-    const onSubmit = async (data: FreezeActionWithDescriptionFormValues) => {
+
+    const [executeAction, error] = useAsyncAction<FreezeActionFormValues>(updateFreezeStatusWithPath);
+
+    const onSubmit = async (data: FreezeActionFormValues) => {
         await executeAction(data);
     };
 

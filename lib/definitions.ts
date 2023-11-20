@@ -1,4 +1,4 @@
-import { freezeActionSchema, freezeActionWithDescriptionSchema, freezeCreateSchema } from "./validators";
+import { freezeActionSchema, freezeCreateSchema } from "./validators";
 
 import { z } from "zod";
 
@@ -81,5 +81,3 @@ export type EventsSearchParams = {
 export type FreezeCreateFormValues = z.infer<typeof freezeCreateSchema>
 
 export type FreezeActionFormValues = z.infer<typeof freezeActionSchema>
-
-export type FreezeActionWithDescriptionFormValues = z.infer<typeof freezeActionWithDescriptionSchema>

@@ -1,11 +1,10 @@
 "use client"
 
 import { Action, FreezeActionFormValues } from "@/lib/definitions";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 
+import { Form } from "../ui/form";
 import { FormButtons } from "@/components/form/form-buttons";
 import { FormError } from "../form/form-error";
-import { Input } from "../ui/input";
 import { freezeActionSchema } from "@/lib/validators";
 import { updateFreezeStatus } from "@/lib/action";
 import { useAsyncAction } from "@/hooks/use-async-action";
@@ -23,8 +22,10 @@ export const ActionForm = ({ id, action, children }: ActionProps) => {
         resolver: zodResolver(freezeActionSchema),
         defaultValues: { id: Number(id), action }
     })
+    
+    const updateFreezeStatusWithPath = updateFreezeStatus.bind(null, "userId")
 
-    const [executeAction, error] = useAsyncAction<FreezeActionFormValues>(updateFreezeStatus);
+    const [executeAction, error] = useAsyncAction<FreezeActionFormValues>(updateFreezeStatusWithPath);
 
     const onSubmit = async (data: FreezeActionFormValues) => {
         await executeAction(data);

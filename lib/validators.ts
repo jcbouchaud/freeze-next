@@ -37,10 +37,5 @@ export const freezeCreateSchema = z.object({
 export const freezeActionSchema = z.object({
     id: z.number(),
     action: actionSchema,
-})
-
-export const freezeActionWithDescriptionSchema = z.object({
-    id: z.number(),
-    action: actionSchema,
     staffDescription: z.string().optional()
 })
