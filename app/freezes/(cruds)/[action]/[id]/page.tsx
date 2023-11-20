@@ -29,18 +29,27 @@ export default async function Action({ params }: { params: { id: number, action:
     const { id, action } = params
     const freeze = await fetchFreeze(id)
 
-    const authorized = () => {
-        if (action === "interrupt" && freeze.status === "ongoing" && freeze.category !== "bonus") return true
-        if (action === "revert" && ["interrupted", "finished"].includes(freeze.status) && freeze.category === "compensation") return true
-        if (["approve", "force-approve", "reject"].includes(action) && freeze.status === "pending") return true
+    const isActionAuthorized = () => {
+        const { status, category, begin_date } = freeze;
+        const today = new Date().toISOString().split("T")[0];
 
-        const today = new Date().toISOString().split("T")[0]
-        if (action === "cancel" && freeze.category === "compensation" && new Date(freeze.begin_date) > new Date(today)) return true
+        switch (action) {
+            case "interrupt":
+                return status === "ongoing" && category !== "bonus";
+            case "revert":
+                return ["interrupted", "finished"].includes(status) && category === "compensation";
+            case "cancel":
+                return category === "compensation" && new Date(begin_date) > new Date(today);
+            case "approve":
+            case "force-approve":
+            case "reject":
+                return status === "pending";
+            default:
+                return false;
+        }
+    };
 
-        return false
-    }
-
-    if (!authorized()) return notFound()
+    if (!isActionAuthorized()) return notFound()
 
     const breadcrumbs = [
         { label: 'Freezes', href: '/freezes' },
