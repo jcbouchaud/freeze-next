@@ -38,7 +38,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                 <SideNav />
                 <BottomNav />
               </div>
-              <div className="z-0 w-full">
+              <div className="z-0 w-full flex min-h-screen flex-col justify-start space-y-2 px-8 py-6">
                 {children}
               </div>
             </main>

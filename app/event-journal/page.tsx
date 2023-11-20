@@ -21,27 +21,19 @@ async function fetchEvents(params: EventsSearchParams): Promise<EventsResponse> 
   headers.append("Content-Type", "application/json")
   headers.append("Authorization", `Bearer ${session?.accessToken as string}`)
 
-  return await fetch(eventsURL, { headers }).then((res) => res.json());
+  return await fetch(eventsURL, { headers, cache: "no-cache" }).then((res) => res.json());
 }
 
 export default async function EventJournal({ searchParams }: { searchParams: EventsSearchParams }) {
   const { items, size, pages }: EventsResponse = await fetchEvents(searchParams)
 
   return (
-    <main>
-      <div className="space-y-6">
-        <div>
-          <h3 className="text-lg font-medium">Event journal</h3>
-          <p className="text-sm text-muted-foreground">
-            Search for events within your campuses
-          </p>
-        </div>
-        <div className="flex flex-row justify-between">
-          <Search />
-        </div>
-        <DataTable data={items} columns={columns} />
-        <Pagination pages={pages} size={size} />
+    <main className="space-y-6">
+      <div className="flex flex-row justify-between">
+        <Search />
       </div>
+      <DataTable data={items} columns={columns} />
+      <Pagination pages={pages} size={size} />
     </main>
   )
 }

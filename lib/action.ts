@@ -1,6 +1,7 @@
 'use server';
 
-import { FreezeCreateFormValues } from './definitions';
+import { Action, FreezeActionFormValues, FreezeActionWithDescriptionFormValues, FreezeCreateFormValues } from './definitions';
+
 import { authConfig } from './auth';
 import { convertDateToShortString } from './utils';
 import { getServerSession } from 'next-auth';
@@ -41,10 +42,10 @@ export async function createFreeze(data: FreezeCreateFormValues) {
 }
 
 
-export async function updateFreezeStatus(id: number, action: string, formData: FormData) {
+export async function updateFreezeStatus(data: FreezeActionFormValues | FreezeActionWithDescriptionFormValues) {
     const session = await getServerSession(authConfig)
 
-    const url = new URL(`/api/v2/freezes/${id}/${action}`, "https://freeze-staging.42.fr");
+    const url = new URL(`/api/v2/freezes/${data.id}/${data.action}`, "https://freeze-staging.42.fr");
 
     const headers = new Headers()
     headers.append("Content-Type", "application/json")
@@ -53,6 +54,7 @@ export async function updateFreezeStatus(id: number, action: string, formData: F
     const res = await fetch(url, {
         headers,
         method: "POST",
+        body: JSON.stringify(data)
     })
 
     if (!res.ok) {
@@ -62,5 +64,5 @@ export async function updateFreezeStatus(id: number, action: string, formData: F
     }
 
     revalidatePath('/freezes');
-    redirect('/freezes');
+    redirect('/freezes?status=pending');
 }

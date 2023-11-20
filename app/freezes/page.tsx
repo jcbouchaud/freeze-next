@@ -22,28 +22,20 @@ async function fetchFreezes(params: FreezeSearchParams): Promise<FreezesResponse
   headers.append("Content-Type", "application/json")
   headers.append("Authorization", `Bearer ${session?.accessToken as string}`)
 
-  return await fetch(freezesURL, { headers }).then((res) => res.json());
+  return await fetch(freezesURL, { headers, cache: "no-store" }).then((res) => res.json());
 }
 
 export default async function FreezesPage({ searchParams }: { searchParams: FreezeSearchParams }) {
   const { items, size, pages }: FreezesResponse = await fetchFreezes(searchParams)
 
   return (
-    <main>
-      <div className="space-y-6">
-        <div>
-          <h3 className="text-lg font-medium">Freezes</h3>
-          <p className="text-sm text-muted-foreground">
-            Manage students freezes from your campuses
-          </p>
-        </div>
-        <div className="flex flex-col-reverse lg:flex-row justify-between gap-2">
-          <Search />
-          <CreateFreezeButton />
-        </div>
-        <DataTable data={items} columns={columns} />
-        <Pagination pages={pages} size={size} />
+    <main className="space-y-4">
+      <div className="flex flex-col-reverse lg:flex-row justify-between gap-2">
+        <Search />
+        <CreateFreezeButton />
       </div>
+      <DataTable data={items} columns={columns} />
+      <Pagination pages={pages} size={size} />
     </main>
   )
 }

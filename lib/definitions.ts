@@ -1,7 +1,8 @@
-import { freezeCreateSchema } from "./validators";
+import { freezeActionSchema, freezeActionWithDescriptionSchema, freezeCreateSchema } from "./validators";
+
 import { z } from "zod";
 
-export type Action = "approve" | "force-approve" | "reject" | "cancel" | "revert" | "interrupted"
+export type Action = "approve" | "force-approve" | "reject" | "cancel" | "revert" | "interrupt"
 
 export type Status = "pending" | "ongoing" | "approved" | "interrupted" | "finished" | "reverted" | "cancelled" | "rejected";
 
@@ -78,3 +79,7 @@ export type EventsSearchParams = {
 } & BaseSearchParams
 
 export type FreezeCreateFormValues = z.infer<typeof freezeCreateSchema>
+
+export type FreezeActionFormValues = z.infer<typeof freezeActionSchema>
+
+export type FreezeActionWithDescriptionFormValues = z.infer<typeof freezeActionWithDescriptionSchema>
