@@ -2,7 +2,6 @@ import Breadcrumbs from "@/components/breadcrumbs";
 import { Action, Freeze } from "@/lib/definitions";
 import { authConfig } from "@/lib/auth";
 import { getServerSession } from "next-auth";
-import { notFound } from "next/navigation";
 import { ActionForm } from "@/components/freezes/action-form";
 import { ActionFormWithDescription } from "@/components/freezes/action-form-with-description";
 import { ActionSummary } from "@/components/freezes/action-summary";
@@ -49,7 +48,7 @@ export default async function Action({ params }: { params: { id: number, action:
         }
     };
 
-    if (!isActionAuthorized()) return notFound()
+    if (!isActionAuthorized()) throw Error(`You cannot ${action} freeze ${id} as its status is ${freeze.status}.`)
 
     const breadcrumbs = [
         { label: 'Freezes', href: '/freezes' },
@@ -66,12 +65,12 @@ export default async function Action({ params }: { params: { id: number, action:
             <div className="w-full rounded-md bg-muted p-4 md:p-6 max-w-3xl">
                 {["approve", "force-approve", "reject", "cancel"].includes(action) &&
                     <ActionFormWithDescription id={id} action={action}>
-                        <ActionSummary freeze={freeze} action={action} />
+                        <ActionSummary freeze={freeze} />
                     </ActionFormWithDescription>
                 }
                 {["interrupt", "revert"].includes(action) &&
                     <ActionForm id={id} action={action}>
-                        <ActionSummary freeze={freeze} action={action} />
+                        <ActionSummary freeze={freeze} />
                     </ActionForm>
                 }
             </div>
