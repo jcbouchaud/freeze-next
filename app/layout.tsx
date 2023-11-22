@@ -1,8 +1,7 @@
 import "@/styles/globals.css"
 
-import { BottomNav, SideNav } from "@/components/navigation"
-
 import { Inter as FontSans } from "next/font/google"
+import { MainNavigation } from "@/components/main-navigation"
 import SessionProvider from "@/components/providers/session-provider"
 import { ThemeProvider } from "@/components/providers/theme-provider"
 import { cn } from "@/lib/utils"
@@ -33,11 +32,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         >
           <SessionProvider session={session}>
             <main className="flex flex-col sm:flex-row">
-              {/* <MainNavigation /> */}
-              <div className="z-10">
-                <SideNav />
-                <BottomNav />
-              </div>
+              <MainNavigation />
               <div className="z-0 w-full flex min-h-screen flex-col justify-start space-y-2 px-8 pt-6 pb-20">
                 {children}
               </div>

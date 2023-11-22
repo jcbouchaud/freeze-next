@@ -3,12 +3,56 @@ import { Action, Freeze } from "@/lib/definitions"
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
-import { format } from "date-fns";
+import { authConfig } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 
 type ActionSummaryType = {
-    freeze: Freeze;
+    id: number;
+    action: Action;
 }
-export const ActionSummary = ({ freeze }: ActionSummaryType) => {
+
+async function fetchFreeze(id: number): Promise<Freeze> {
+    const session = await getServerSession(authConfig)
+    const url = new URL(`/api/v2/freezes/${id}`, "https://freeze-staging.42.fr")
+
+    const headers = new Headers()
+    headers.append("Content-Type", "application/json")
+    headers.append("Authorization", `Bearer ${session?.accessToken as string}`)
+
+    const res = await fetch(url, { headers })
+
+    if (!res.ok) {
+        const error = await res.json()
+        throw Error(error.detail)
+    }
+
+    return await res.json()
+}
+
+export const ActionSummary = async ({ id, action }: ActionSummaryType) => {
+    const freeze = await fetchFreeze(id)
+
+    const isActionAuthorized = () => {
+        const { status, category, begin_date } = freeze;
+        const today = new Date().toISOString().split("T")[0];
+
+        switch (action) {
+            case "interrupt":
+                return status === "ongoing" && category !== "bonus";
+            case "revert":
+                return ["interrupted", "finished"].includes(status) && category === "compensation";
+            case "cancel":
+                return category === "compensation" && new Date(begin_date) > new Date(today);
+            case "approve":
+            case "force-approve":
+            case "reject":
+                return status === "pending";
+            default:
+                return false;
+        }
+    };
+
+    if (!isActionAuthorized()) throw Error(`You cannot ${action} freeze ${id} as its status is ${freeze.status}.`)
     return (
         <div className="space-y-6">
             <div className="flex flex-col sm:flex-row w-full gap-4">
