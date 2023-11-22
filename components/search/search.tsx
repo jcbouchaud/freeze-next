@@ -1,8 +1,8 @@
-import { CopyURL } from "./search-copy"
 import { ReactNode } from "react"
 import { SearchGroup } from "./search-group"
 import SearchInput from "./search-input"
 import { SearchSelect } from "./search-select"
+import { SearchURLCopy } from "./search-copy"
 
 export const Search = ({ children }: { children: ReactNode }) => {
     return (
@@ -13,4 +13,4 @@ export const Search = ({ children }: { children: ReactNode }) => {
 Search.Input = SearchInput
 Search.Select = SearchSelect
 Search.Group = SearchGroup
-Search.Copy = CopyURL
+Search.Copy = SearchURLCopy

@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { Copy } from "lucide-react"
 import { useSearchParams } from "next/navigation"
 
-export const CopyURL = () => {
+export const SearchURLCopy = () => {
     const searchParams = useSearchParams();
 
     const handleCopy = () => {
