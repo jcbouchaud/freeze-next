@@ -1,10 +1,10 @@
 "use client"
 
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { Copy } from "lucide-react"
 import { useSearchParams } from "next/navigation"
 
-export const CopyUrlButton = () => {
+export const CopyURL = () => {
     const searchParams = useSearchParams();
 
     const handleCopy = () => {
@@ -20,7 +20,6 @@ export const CopyUrlButton = () => {
             onClick={handleCopy}
         >
             <Copy className="h-4 w-4" />
-            <span className="block ml-2 sm:hidden md:02">Copy</span>
         </Button>
     )
 }

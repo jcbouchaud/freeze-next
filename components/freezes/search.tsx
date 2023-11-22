@@ -1,12 +1,10 @@
 import { Category, FreezeSearchParams, Status } from '@/lib/definitions';
 
-import { CopyUrlButton } from '@/components/copy-url-button';
-import SearchInput from '../search/search-input';
-import { SearchSelect } from '@/components/search/search-select';
+import { Search } from '../search';
 import { authConfig } from '@/lib/auth';
 import { getServerSession } from 'next-auth';
 
-export default async function Search() {
+export default async function FreezeSearch() {
     const session = await getServerSession(authConfig);
 
     if (!session) return null
@@ -35,17 +33,18 @@ export default async function Search() {
         })
 
     return (
-        <div className='flex flex-col' >
-            <div className="flex flex-col sm:flex-row gap-1.5">
-                <SearchInput<FreezeSearchParams> name="user" placeholder="Student id or login" />
-                <div className="flex-wrap sm:flex-nowrap flex flex-row gap-1.5">
-                    <SearchSelect<FreezeSearchParams> name="status" options={statusOptions} />
-                    <SearchSelect<FreezeSearchParams> name="category" options={categoryOptions} />
-                    <SearchSelect<FreezeSearchParams> name="campus" options={campusOptions} />
-                </div>
-                <CopyUrlButton />
-            </div>
-        </div>
-
+        <Search>
+            <Search.Group>
+                <Search.Input<FreezeSearchParams> name="user" placeholder="Student id or login" />
+            </Search.Group>
+            <Search.Group>
+                <Search.Select<FreezeSearchParams> name="status" options={statusOptions} />
+                <Search.Select<FreezeSearchParams> name="category" options={categoryOptions} />
+            </Search.Group>
+            <Search.Group>
+                <Search.Select<FreezeSearchParams> name="campus" options={campusOptions} />
+                <Search.Copy />
+            </Search.Group>
+        </Search>
     )
 }

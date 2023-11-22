@@ -1,12 +1,10 @@
 import { EventsSearchParams, Source } from '@/lib/definitions';
 
-import { CopyUrlButton } from '@/components/copy-url-button';
-import SearchInput from '../search/search-input';
-import { SearchSelect } from '@/components/search/search-select';
+import { Search } from '../search';
 import { authConfig } from '@/lib/auth';
 import { getServerSession } from 'next-auth';
 
-export default async function Search() {
+export default async function EventJournalSearch() {
     const session = await getServerSession(authConfig);
 
     if (!session) return null
@@ -23,17 +21,18 @@ export default async function Search() {
         })
 
     return (
-        <div className='flex flex-col' >
-            <div className="flex flex-col sm:flex-row gap-1.5">
-                <SearchInput<EventsSearchParams> name="user" placeholder="Student id or login" />
-                <SearchInput<EventsSearchParams> name="result" placeholder="Filter by results keywords" />
-                <div className="flex-wrap sm:flex-nowrap flex flex-row gap-1.5">
-                    <SearchSelect<EventsSearchParams> name="sources" options={sourceOptions} />
-                    <SearchSelect<EventsSearchParams> name="campus" options={campusOptions} />
-                </div>
-                <CopyUrlButton />
-            </div>
-        </div>
-
+        <Search>
+            <Search.Group>
+                <Search.Input<EventsSearchParams> name="user" placeholder="Student id or login" />
+            </Search.Group>
+            <Search.Group>
+                <Search.Input<EventsSearchParams> name="result" placeholder="Filter by results keywords" />
+            </Search.Group>
+            <Search.Group>
+                <Search.Select<EventsSearchParams> name="sources" options={sourceOptions} />
+                <Search.Select<EventsSearchParams> name="campus" options={campusOptions} />
+                <Search.Copy />
+            </Search.Group>
+        </Search>
     )
 }

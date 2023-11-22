@@ -12,6 +12,8 @@ type ActionSummaryType = {
 }
 
 async function fetchFreeze(id: number): Promise<Freeze> {
+    const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+    await sleep(2000)
     const session = await getServerSession(authConfig)
     const url = new URL(`/api/v2/freezes/${id}`, "https://freeze-staging.42.fr")
 
