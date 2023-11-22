@@ -83,3 +83,7 @@ export type EventsSearchParams = {
 export type FreezeCreateFormValues = z.infer<typeof freezeCreateSchema>
 
 export type FreezeActionFormValues = z.infer<typeof freezeActionSchema>
+
+export type FilterKeysOfType<T, U> = {
+    [K in keyof T]: T[K] extends U ? K : never;
+};

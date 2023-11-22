@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { SearchCalendar } from "./seatch-calendar"
+import { SearchCalendar } from "./search-calendar"
 import { SearchGroup } from "./search-group"
 import { SearchInput } from "./search-input"
 import { SearchReset } from "./search-reset"

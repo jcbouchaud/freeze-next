@@ -10,15 +10,12 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import { CalendarIcon } from "lucide-react"
+import { FilterKeysOfType } from "@/lib/definitions";
 import { cn } from "@/lib/utils"
 import { format } from "date-fns";
 import { useState } from "react";
 
-type FilterDateKeys<T> = {
-    [K in keyof T]: T[K] extends Date ? K : never;
-};
-
-type SearchCalendarProps<T> = { name: FilterDateKeys<T>[keyof T], placeholder?: string }
+type SearchCalendarProps<T> = { name: FilterKeysOfType<T, Date>[keyof T], placeholder?: string }
 
 export function SearchCalendar<T>({ name, placeholder }: SearchCalendarProps<T>) {
     const searchParams = useSearchParams();

@@ -18,14 +18,11 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { FilterKeysOfType } from "@/lib/definitions";
 import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
 
-type FilterArrayKeys<T> = {
-    [K in keyof T]: T[K] extends Array<string | number> ? K : never;
-};
-
-type SearchSelectProps<T> = { name: FilterArrayKeys<T>[keyof T], options: Array<{ value: string, label: string }> }
+type SearchSelectProps<T> = { name: FilterKeysOfType<T, Array<string | number>>[keyof T], options: Array<{ value: string, label: string }> }
 
 export function SearchSelect<T>({ name, options }: SearchSelectProps<T>) {
     const searchParams = useSearchParams();
