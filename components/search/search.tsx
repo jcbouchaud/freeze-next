@@ -1,6 +1,6 @@
 import { ReactNode } from "react"
 import { SearchGroup } from "./search-group"
-import SearchInput from "./search-input"
+import { SearchInput } from "./search-input"
 import { SearchSelect } from "./search-select"
 import { SearchURLCopy } from "./search-copy"
 

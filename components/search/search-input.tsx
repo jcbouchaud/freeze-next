@@ -7,7 +7,7 @@ import { useDebouncedCallback } from 'use-debounce';
 
 type SearchInputProps<T> = { name: keyof T } & React.InputHTMLAttributes<HTMLInputElement>
 
-export default function SearchInput<T>({ name, ...props }: SearchInputProps<T>) {
+export function SearchInput<T>({ name, ...props }: SearchInputProps<T>) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const { replace } = useRouter();
