@@ -21,7 +21,11 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
 
-type SearchSelectProps<T> = { name: keyof T, options: Array<{ value: string, label: string }> }
+type FilterArrayKeys<T> = {
+    [K in keyof T]: T[K] extends Array<string | number> ? K : never;
+};
+
+type SearchSelectProps<T> = { name: FilterArrayKeys<T>[keyof T], options: Array<{ value: string, label: string }> }
 
 export function SearchSelect<T>({ name, options }: SearchSelectProps<T>) {
     const searchParams = useSearchParams();

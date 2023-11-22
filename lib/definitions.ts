@@ -66,15 +66,15 @@ export type BaseSearchParams = {
 
 export type FreezeSearchParams = {
     user: string;
-    status: Status;
-    category: Category;
-    campus: string;
+    status: Status[];
+    category: Category[];
+    campus: number[];
 } & BaseSearchParams
 
 export type EventsSearchParams = {
     user: string;
-    sources: Source;
-    campus: number;
+    sources: Source[];
+    campus: number[];
     result: string;
     from_date: Date;
     to_date: Date;

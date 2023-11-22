@@ -14,7 +14,11 @@ import { cn } from "@/lib/utils"
 import { format } from "date-fns";
 import { useState } from "react";
 
-type SearchCalendarProps<T> = { name: keyof T, placeholder?: string }
+type FilterDateKeys<T> = {
+    [K in keyof T]: T[K] extends Date ? K : never;
+};
+
+type SearchCalendarProps<T> = { name: FilterDateKeys<T>[keyof T], placeholder?: string }
 
 export function SearchCalendar<T>({ name, placeholder }: SearchCalendarProps<T>) {
     const searchParams = useSearchParams();
@@ -37,7 +41,6 @@ export function SearchCalendar<T>({ name, placeholder }: SearchCalendarProps<T>)
     }
 
     return (
-
         <Popover>
             <PopoverTrigger asChild>
                 <Button
@@ -63,6 +66,5 @@ export function SearchCalendar<T>({ name, placeholder }: SearchCalendarProps<T>)
                 />
             </PopoverContent>
         </Popover>
-
     )
 }

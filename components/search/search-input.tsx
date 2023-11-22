@@ -5,7 +5,11 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Input } from "@/components/ui/input"
 import { useDebouncedCallback } from 'use-debounce';
 
-type SearchInputProps<T> = { name: keyof T } & React.InputHTMLAttributes<HTMLInputElement>
+type FilterStringKeys<T> = {
+    [K in keyof T]: T[K] extends string ? K : never;
+};
+
+type SearchInputProps<T> = { name: FilterStringKeys<T>[keyof T] } & React.InputHTMLAttributes<HTMLInputElement>
 
 export function SearchInput<T>({ name, ...props }: SearchInputProps<T>) {
     const searchParams = useSearchParams();
