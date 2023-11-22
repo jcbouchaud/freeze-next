@@ -1,6 +1,8 @@
 import { ReactNode } from "react"
+import { SearchCalendar } from "./seatch-calendar"
 import { SearchGroup } from "./search-group"
 import { SearchInput } from "./search-input"
+import { SearchReset } from "./search-reset"
 import { SearchSelect } from "./search-select"
 import { SearchURLCopy } from "./search-copy"
 
@@ -14,3 +16,5 @@ Search.Input = SearchInput
 Search.Select = SearchSelect
 Search.Group = SearchGroup
 Search.Copy = SearchURLCopy
+Search.Calendar = SearchCalendar
+Search.Reset = SearchReset

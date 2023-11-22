@@ -4,7 +4,7 @@ import { Textarea } from "../ui/textarea";
 
 export const ActionSummarySkeleton = () => {
     return (
-        <div className="space-y-6 animate-pulse">
+        <div className="space-y-6 animate-pulse pb-16">
             <div className="flex flex-col sm:flex-row w-full gap-4">
                 <div className="grid w-full max-w-sm items-center gap-1.5">
                     <Label className="h-3" htmlFor="login"></Label>

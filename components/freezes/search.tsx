@@ -40,10 +40,11 @@ export default async function FreezeSearch() {
             <Search.Group>
                 <Search.Select<FreezeSearchParams> name="status" options={statusOptions} />
                 <Search.Select<FreezeSearchParams> name="category" options={categoryOptions} />
+                <Search.Select<FreezeSearchParams> name="campus" options={campusOptions} />
             </Search.Group>
             <Search.Group>
-                <Search.Select<FreezeSearchParams> name="campus" options={campusOptions} />
                 <Search.Copy />
+                <Search.Reset />
             </Search.Group>
         </Search>
     )
