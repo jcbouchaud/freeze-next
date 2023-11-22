@@ -25,6 +25,7 @@ export const MainNavigation = () => {
 
   return (
     <Navigation>
+      {/* Logo */}
       <div className="hidden w-full sm:flex flex-row justify-center py-4 lg:py-8">
         <Image
           src="/42-staff-logo.svg"
@@ -41,6 +42,8 @@ export const MainNavigation = () => {
           height={60}
         />
       </div>
+
+      {/* App navigation */}
       <Navigation.List>
         <Link href="/freezes">
           <Navigation.Item active={pathname.includes("/freezes")}>
@@ -61,6 +64,8 @@ export const MainNavigation = () => {
           </Navigation.Item>
         </Link>
       </Navigation.List>
+      
+      {/* UI actions + Login/Logout */}
       <Navigation.List className="hidden h-full gap-2 sm:flex flex-col items-center justify-end lg:flex-row lg:justify-center lg:items-end w-full">
         <Navigation.Item asChild>
           <ModeToggle />

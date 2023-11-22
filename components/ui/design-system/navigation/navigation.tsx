@@ -2,6 +2,7 @@
 
 import { NavigationItem } from "./navigation-item";
 import { NavigationList } from "./navigation-list";
+import { Notification } from "./navigation-item-notification";
 import { ReactNode } from "react";
 
 export const Navigation = ({ children }: { children: ReactNode }) => {
@@ -13,4 +14,5 @@ export const Navigation = ({ children }: { children: ReactNode }) => {
 }
 
 Navigation.Item = NavigationItem
+Navigation.ItemNotification = Notification
 Navigation.List = NavigationList
