@@ -2,7 +2,7 @@ import type { JWT } from 'next-auth/jwt';
 import KeycloakProvider from "next-auth/providers/keycloak";
 import { NextAuthOptions } from "next-auth";
 
-const refreshAccessToken = async (token: JWT) => {
+const refreshAccessToken = async (token: JWT, realmURL: string) => {
     try {
         if (Date.now() > token.refreshTokenExpired) throw Error;
         const details = {
@@ -18,7 +18,7 @@ const refreshAccessToken = async (token: JWT) => {
             formBody.push(encodedKey + '=' + encodedValue);
         });
         const formData = formBody.join('&');
-        const url = process.env.KEYCLOAK_AUTH_TOKEN_URL as string;
+        const url = realmURL + process.env.KEYCLOAK_AUTH_TOKEN_PATH as string
         const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -47,10 +47,20 @@ const refreshAccessToken = async (token: JWT) => {
 export const authConfig: NextAuthOptions = {
     providers: [
         KeycloakProvider({
+            id: "keycloak-staff",
+            name: "Keycloak Staff",
             clientId: process.env.KEYCLOAK_CLIENT_ID as string,
             clientSecret: process.env.KEYCLOAK_CLIENT_SECRET as string,
-            issuer: process.env.AUTH_ISSUER as string,
-            requestTokenUrl: process.env.KEYCLOAK_AUTH_TOKEN_URL as string,
+            issuer: process.env.STAFF_AUTH_ISSUER as string,
+            requestTokenUrl: process.env.STAFF_AUTH_ISSUER as string + process.env.KEYCLOAK_AUTH_TOKEN_PATH as string,
+        }),
+        KeycloakProvider({
+            id: "keycloak-students",
+            name: "Keycloak Students",
+            clientId: process.env.KEYCLOAK_CLIENT_ID as string,
+            clientSecret: process.env.KEYCLOAK_CLIENT_SECRET as string,
+            issuer: process.env.STUDENTS_AUTH_ISSUER as string,
+            requestTokenUrl: process.env.STUDENTS_AUTH_ISSUER as string + process.env.KEYCLOAK_AUTH_TOKEN_PATH as string,
         }),
     ],
     session: { strategy: "jwt" },
@@ -58,6 +68,7 @@ export const authConfig: NextAuthOptions = {
         async jwt({ token, account, user, profile }) {
             if (profile) {
                 token.campuses = profile.campus
+                token.iss = profile.iss
             }
             if (account) {
                 token.accessToken = account.access_token
@@ -73,13 +84,14 @@ export const authConfig: NextAuthOptions = {
             if (Date.now() < token.accessTokenExpired) {
                 return token;
             }
-            return refreshAccessToken(token);
+
+            const realmURL = token.iss
+            return refreshAccessToken(token, realmURL);
         },
         async session({ session, token, user }) {
             session.accessToken = token.accessToken as string
             session.user.id = token.id as string
             session.campuses = token.campuses as Array<string>
-
             return session
         }
     },

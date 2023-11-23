@@ -62,6 +62,7 @@ declare module 'next-auth' {
     family_name: string;
     email?: string;
     campus: Array<string>;
+    iss: string;
   }
 }
 
@@ -77,5 +78,6 @@ declare module 'next-auth/jwt' {
     refreshTokenExpired: number;
     user: User;
     error: string;
+    iss: string;
   }
 }

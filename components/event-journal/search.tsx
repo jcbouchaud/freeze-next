@@ -22,19 +22,19 @@ export default async function EventJournalSearch() {
 
     return (
         <Search>
-            <Search.Group>
+            {/* <Search.Group>
                 <Search.Input<EventsSearchParams> name="user" placeholder="Student id or login" />
             </Search.Group>
             <Search.Group>
                 <Search.Input<EventsSearchParams> name="result" placeholder="Filter by results keywords" />
-            </Search.Group>
+            </Search.Group> */}
             <Search.Group>
                 <Search.Calendar<EventsSearchParams> name="from_date" placeholder="From" />
                 <Search.Calendar<EventsSearchParams> name="to_date" placeholder="To" />
             </Search.Group>
             <Search.Group>
-                <Search.Select<EventsSearchParams> name="sources" options={sourceOptions} />
-                <Search.Select<EventsSearchParams> name="campus" options={campusOptions} />
+                {/* <Search.Select<EventsSearchParams> name="sources" options={sourceOptions} />
+                <Search.Select<EventsSearchParams> name="campus" options={campusOptions} /> */}
             </Search.Group>
             <Search.Group>
                 <Search.Copy />

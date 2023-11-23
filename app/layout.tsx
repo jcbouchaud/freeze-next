@@ -4,6 +4,7 @@ import { Inter as FontSans } from "next/font/google"
 import { MainNavigation } from "@/components/main-navigation"
 import SessionProvider from "@/components/providers/session-provider"
 import { ThemeProvider } from "@/components/providers/theme-provider"
+import { authConfig } from "@/lib/auth"
 import { cn } from "@/lib/utils"
 import { getServerSession } from "next-auth"
 
@@ -13,7 +14,7 @@ export const fontSans = FontSans({
 })
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const session = await getServerSession()
+  const session = await getServerSession(authConfig)
 
   return (
     <html lang="en" suppressHydrationWarning>

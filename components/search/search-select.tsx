@@ -24,39 +24,40 @@ import { cn } from "@/lib/utils"
 
 type SearchSelectProps<T> = { name: FilterKeysOfType<T, Array<string | number>>[keyof T], options: Array<{ value: string, label: string }> }
 
-export function SearchSelect<T>({ name, options }: SearchSelectProps<T>) {
-    const searchParams = useSearchParams();
-    const pathname = usePathname();
-    const { replace } = useRouter();
+// export function SearchSelect<T>({ name, options }: SearchSelectProps<T>) {
+export function SearchSelect({ options, values, ...props }: { options: Array<{ value: string, label: string }>, values: Array<string> } & React.SelectHTMLAttributes<HTMLSelectElement>) {
+    // const searchParams = useSearchParams();
+    // const pathname = usePathname();
+    // const { replace } = useRouter();
 
-    const values = searchParams.getAll(name as string)
+    // const values = searchParams.getAll(name as string)
 
-    const handleSelect = (value: string | undefined) => {
-        const params = new URLSearchParams(searchParams);
-        params.set('page', '1');
+    // const handleSelect = (value: string | undefined) => {
+    //     const params = new URLSearchParams(searchParams);
+    //     params.set('page', '1');
 
-        if (value === undefined) {
-            params.delete(name as string)
-        } else {
-            if (!values.includes(value)) {
-                params.append(name as string, value)
-            } else {
-                params.delete(name as string)
-                values.filter(x => x !== value).forEach((v) => {
-                    params.append(name as string, v)
-                })
-            }
-        }
+    //     if (value === undefined) {
+    //         params.delete(name as string)
+    //     } else {
+    //         if (!values.includes(value)) {
+    //             params.append(name as string, value)
+    //         } else {
+    //             params.delete(name as string)
+    //             values.filter(x => x !== value).forEach((v) => {
+    //                 params.append(name as string, v)
+    //             })
+    //         }
+    //     }
 
-        replace(`${pathname}?${params.toString()}`);
-    }
+    //     replace(`${pathname}?${params.toString()}`);
+    // }
 
     return (
         <Popover>
             <PopoverTrigger asChild>
                 <Button variant="outline" size="sm" className="border-dashed">
                     <PlusCircledIcon className="mr-2 h-4 w-4" />
-                    <span className="capitalize">{name as string}</span>
+                    {/* <span className="capitalize">{name as string}</span> */}
                     {values.length > 0 && (
                         <>
                             <Separator orientation="vertical" className="mx-2 h-4" />
@@ -101,8 +102,9 @@ export function SearchSelect<T>({ name, options }: SearchSelectProps<T>) {
                                 const isSelected = values.includes(option.value)
                                 return (
                                     <CommandItem
+                                        value={option.value}
                                         key={option.value}
-                                        onSelect={() => handleSelect(option.value)}
+                                        onSelect={props.onChange}
                                     >
                                         <div
                                             className={cn(
@@ -124,7 +126,7 @@ export function SearchSelect<T>({ name, options }: SearchSelectProps<T>) {
                                 <CommandSeparator />
                                 <CommandGroup>
                                     <CommandItem
-                                        onSelect={() => handleSelect(undefined)}
+                                        // onSelect={() => handleSelect(undefined)}
                                         className="justify-center text-center"
                                     >
                                         Clear filters
