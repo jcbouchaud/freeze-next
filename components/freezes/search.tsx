@@ -1,19 +1,13 @@
-"use client"
-
 import { Category, FreezeSearchParams, Status } from '@/lib/definitions';
 
 import { Search } from '../search';
 import { authConfig } from '@/lib/auth';
 import { getServerSession } from 'next-auth';
-import { useQuerySearchHandlers } from '@/hooks/use-query-search-handlers';
-import { useSession } from 'next-auth/react';
 
-export default function FreezeSearch() {
-    // const session = await getServerSession(authConfig);
-    const { data } = useSession()
-    const { handleInputSearch, handleSelectSearch } = useQuerySearchHandlers<FreezeSearchParams>()
+export default async function FreezeSearch() {
+    const session = await getServerSession(authConfig);
 
-    if (!data) return null
+    if (!session) return null
 
     const categoryOptions: Array<{ label: string, value: Category }> = [
         { label: "regular", value: "regular" },
@@ -32,7 +26,7 @@ export default function FreezeSearch() {
         { label: "finished", value: "finished" },
     ]
 
-    const campusOptions: Array<{ label: string, value: string }> = data?.campuses
+    const campusOptions: Array<{ label: string, value: string }> = session?.campuses
         .filter(x => x !== "*")
         .map(x => {
             return { label: x, value: x }
@@ -41,12 +35,12 @@ export default function FreezeSearch() {
     return (
         <Search>
             <Search.Group>
-                <Search.Input placeholder="Student id or login" onChange={(e) => handleInputSearch("user", e.target.value)} />
+                <Search.Input<FreezeSearchParams> name="user" placeholder="Student id or login" />
             </Search.Group>
             <Search.Group>
-                {/* <Search.Select name="status" options={statusOptions} onChange={(e) => handleSelectSearch("status", e.target.value)} /> */}
-                {/* <Search.Select name="category" options={categoryOptions} />
-                <Search.Select name="campus" options={campusOptions} /> */}
+                <Search.Select<FreezeSearchParams> name="status" options={statusOptions} />
+                <Search.Select<FreezeSearchParams> name="category" options={categoryOptions} />
+                <Search.Select<FreezeSearchParams> name="campus" options={campusOptions} />
             </Search.Group>
             <Search.Group>
                 <Search.Copy />

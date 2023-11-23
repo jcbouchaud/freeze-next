@@ -18,46 +18,48 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { FilterKeysOfType } from "@/lib/definitions";
 import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
 
-type SearchSelectProps<T> = { name: FilterKeysOfType<T, Array<string | number>>[keyof T], options: Array<{ value: string, label: string }> }
+type FilterArrayKeys<T> = {
+    [K in keyof T]: T[K] extends Array<string | number> ? K : never;
+};
 
-// export function SearchSelect<T>({ name, options }: SearchSelectProps<T>) {
-export function SearchSelect({ options, values, ...props }: { options: Array<{ value: string, label: string }>, values: Array<string> } & React.SelectHTMLAttributes<HTMLSelectElement>) {
-    // const searchParams = useSearchParams();
-    // const pathname = usePathname();
-    // const { replace } = useRouter();
+type SearchSelectProps<T> = { name: FilterArrayKeys<T>[keyof T], options: Array<{ value: string, label: string }> }
 
-    // const values = searchParams.getAll(name as string)
+export function SearchSelect<T>({ name, options }: SearchSelectProps<T>) {
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+    const { replace } = useRouter();
 
-    // const handleSelect = (value: string | undefined) => {
-    //     const params = new URLSearchParams(searchParams);
-    //     params.set('page', '1');
+    const values = searchParams.getAll(name as string)
 
-    //     if (value === undefined) {
-    //         params.delete(name as string)
-    //     } else {
-    //         if (!values.includes(value)) {
-    //             params.append(name as string, value)
-    //         } else {
-    //             params.delete(name as string)
-    //             values.filter(x => x !== value).forEach((v) => {
-    //                 params.append(name as string, v)
-    //             })
-    //         }
-    //     }
+    const handleSelect = (value: string | undefined) => {
+        const params = new URLSearchParams(searchParams);
+        params.set('page', '1');
 
-    //     replace(`${pathname}?${params.toString()}`);
-    // }
+        if (value === undefined) {
+            params.delete(name as string)
+        } else {
+            if (!values.includes(value)) {
+                params.append(name as string, value)
+            } else {
+                params.delete(name as string)
+                values.filter(x => x !== value).forEach((v) => {
+                    params.append(name as string, v)
+                })
+            }
+        }
+
+        replace(`${pathname}?${params.toString()}`);
+    }
 
     return (
         <Popover>
             <PopoverTrigger asChild>
                 <Button variant="outline" size="sm" className="border-dashed">
                     <PlusCircledIcon className="mr-2 h-4 w-4" />
-                    {/* <span className="capitalize">{name as string}</span> */}
+                    <span className="capitalize">{name as string}</span>
                     {values.length > 0 && (
                         <>
                             <Separator orientation="vertical" className="mx-2 h-4" />
@@ -102,9 +104,8 @@ export function SearchSelect({ options, values, ...props }: { options: Array<{ v
                                 const isSelected = values.includes(option.value)
                                 return (
                                     <CommandItem
-                                        value={option.value}
                                         key={option.value}
-                                        onSelect={props.onChange}
+                                        onSelect={() => handleSelect(option.value)}
                                     >
                                         <div
                                             className={cn(
@@ -126,7 +127,7 @@ export function SearchSelect({ options, values, ...props }: { options: Array<{ v
                                 <CommandSeparator />
                                 <CommandGroup>
                                     <CommandItem
-                                        // onSelect={() => handleSelect(undefined)}
+                                        onSelect={() => handleSelect(undefined)}
                                         className="justify-center text-center"
                                     >
                                         Clear filters
